@@ -1,11 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import AdminRoutes from './routes/AdminRoutes';
 import VendedorRoutes from './routes/VendedorRoutes';
-import Login from './pages/public/Login';
-import Home from './pages/public/Home';
-import './index.css'
 import publicRoutes from './routes/PublicRoutes';
+import './index.css';
 
 function App() {
   const { isAuthenticated, userRole } = useAuth();
@@ -13,12 +11,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rotas públicas para acessso geral*/}
+        {/* Rotas públicas */}
         {publicRoutes}
 
         {/* Rotas privadas */}
-        {isAuthenticated && userRole === 'admin' && <AdminRoutes />}
-        {isAuthenticated && userRole === 'vendedor' && <VendedorRoutes />}
+        {isAuthenticated && userRole === 'admin' && AdminRoutes}
+        {isAuthenticated && userRole === 'vendedor' && VendedorRoutes}
       </Routes>
     </BrowserRouter>
   );
