@@ -1,0 +1,114 @@
+/* ProdutoInputs.module.css
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}
+
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.formGroup label {
+  background: #000000;
+  color: #ffffff;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-radius: 4px 4px 0 0;
+  letter-spacing: 0.3px;
+}
+
+
+.formGroup input {
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background: #ffffff;
+  color: #333;
+  font-size: 13px;
+  font-family: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #4ca3ff;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #4ca3ff;
+}
+
+
+.formGroup input:disabled {
+  background: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+
+.addCartButton {
+  margin-top: 12px;
+  width: 100%;
+  background-color: #00d56a;
+  border: none;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #000;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.addCartButton:hover:not(:disabled) {
+  background-color: #00b85b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 213, 106, 0.3);
+}
+
+.addCartButton:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .formGroup input {
+    font-size: 12px;
+  }
+} */

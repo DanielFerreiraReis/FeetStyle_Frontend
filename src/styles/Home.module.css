@@ -1,0 +1,152 @@
+/* ======== TEMAS ======== */
+.homeContainer {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* MODO CLARO */
+.light {
+  background: linear-gradient(135deg, #fff9c4, #c8e6c9, #bbdefb);
+  color: #333;
+}
+
+/* MODO ESCURO */
+.dark {
+  background: linear-gradient(135deg, #0d1117, #1b263b, #243447);
+  color: #e0e0e0;
+}
+
+/* ======== CONTEÚDO ======== */
+.homeContent {
+  position: relative;
+  max-width: 800px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* ======== ÍCONE E TÍTULO ======== */
+.logoSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.logoIcon {
+  font-size: 42px;
+  color: var(--primary-color);
+}
+
+.homeTitle {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* ======== TEXTO ======== */
+.homeSubtitle {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.aboutCard {
+  background-color: var(--card-inner-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 25px;
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.aboutCard h2 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.aboutCard p {
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+/* ======== BOTÃO ENTRAR ======== */
+.button {
+  background-color: var(--button-bg);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.button:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* ======== FOOTER ======== */
+.footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: var(--footer-color);
+}
+
+/* ======== BOTÃO DE TEMA ======== */
+.toggleButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  color: var(--primary-color);
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.toggleButton:hover {
+  color: var(--button-hover);
+}
+
+/* ======== VARIÁVEIS DE COR ======== */
+.light {
+  --primary-color: #1976d2;
+  --card-bg: #ffffff;
+  --card-inner-bg: #f7f9fc;
+  --border-color: #e0e0e0;
+  --text-color: #444;
+  --footer-color: #555;
+  --button-bg: #1976d2;
+  --button-hover: #1565c0;
+}
+
+.dark {
+  --primary-color: #58a6ff;
+  --card-bg: #161b22;
+  --card-inner-bg: #21262d;
+  --border-color: #30363d;
+  --text-color: #adbac7;
+  --footer-color: #8b949e;
+  --button-bg: #238636;
+  --button-hover: #2ea043;
+}

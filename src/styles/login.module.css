@@ -1,0 +1,138 @@
+.container{
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    /* min - significa que a altura mínima da tela será 100% da altura da viewport height( altura da tela de visualização ) 
+     body é inline-block (ocupa a linha toda) por padrão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: black 2px solid;
+    background: url(../assets/images/logTelaDeFundo.png);
+    /* background: url(fundo2.png); */
+    background-size: cover;
+    background-position: center;
+}
+
+.forms {
+    width: 420px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: #fff;
+    padding: 30px 40px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    /* site para referencias de box-shadow: https://getcssscan.com/css-box-shadow-examples */
+}
+
+.forms h1{
+    font-size: 36px;
+    text-align: center;
+}
+
+
+.inputBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: 100%;
+    margin: 20px 0;
+    /* margin: 20px 0; é o espaçamento acima entre os inputs */
+    background-color: transparent;
+    padding: 10px 15px 10px 20px;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    
+}
+
+.inputBox input{
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #fff;
+}
+
+.inputBox input::placeholder{
+    color: #fff;
+}
+
+.inputBox i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translatey(-50%);
+    font-size: 20px;
+}
+
+.rememberForgot{
+    display: flex;
+    justify-content: space-between;
+    margin: -15px 0 15px 0;
+}
+
+.rememberForgot label input{
+    accent-color: rgba(255, 255, 255, 0.2);
+    margin-right: 5px;
+}
+
+.rememberForgot a {
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+    color: #fff;
+}
+
+.rememberForgot a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background: #87cefa;
+    transition: width 0.4s ease;
+}
+
+.rememberForgot a:hover::after {
+  width: 100%;
+}
+
+.rememberForgot a:hover {
+  color: #87cefa;
+  
+}
+
+.login{
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    transition: background-color 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top : 20px;
+}
+
+.login:hover {
+    background-color: transparent;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.icon{
+    cursor: pointer;
+}
+
+.icon:hover{
+    color:#87cefa;
+}
