@@ -1,3 +1,10 @@
+/* Da uma olhada nisso depois davi...tive que dar uma alterada */
+.organization{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .mainContainer {
   display: flex;
   gap: 32px;

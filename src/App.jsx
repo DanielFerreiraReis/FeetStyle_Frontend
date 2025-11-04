@@ -1,23 +1,11 @@
-import { BrowserRouter, Routes } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
-import AdminRoutes from './routes/AdminRoutes';
-import VendedorRoutes from './routes/VendedorRoutes';
-import publicRoutes from './routes/PublicRoutes';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-  const { isAuthenticated, userRole } = useAuth();
-
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Rotas públicas */}
-        {publicRoutes}
-
-        {/* Rotas privadas */}
-        {isAuthenticated && userRole === 'admin' && AdminRoutes}
-        {isAuthenticated && userRole === 'vendedor' && VendedorRoutes}
-      </Routes>
+      <AppRoutes/>
     </BrowserRouter>
   );
 }

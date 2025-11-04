@@ -5,7 +5,7 @@ import styles from "../../../styles/TelaVendas.module.css";
 
 const TelaDeVendas = () => {
   return (
-    <>
+    <div className={styles.organization}>
       <BarraSuperior />
       <div className={styles.mainContainer}>
         {/* COLUNA ESQUERDA - Imagem e Tabela */}
@@ -101,7 +101,7 @@ const TelaDeVendas = () => {
           <button className={styles.addCartButton}>ADICIONAR NO CARRINHO</button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
