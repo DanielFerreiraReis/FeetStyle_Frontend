@@ -1,0 +1,64 @@
+/* components/FormLayout.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.formLayout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: #f5faff;
+}
+
+.topBar {
+  display: flex;
+  background: #0078d4;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.topBar button {
+  background: white;
+  color: #0078d4;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.topBar button.active {
+  background: #005a9e;
+  color: white;
+}
+
+.formBody {
+  flex: 1;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.formFooter {
+  padding: 1rem;
+  background: #e6f0fa;
+  text-align: right;
+}
+
+.submitButton {
+  background: #0078d4;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  background: #a0c4e3;
+  cursor: not-allowed;
+}
