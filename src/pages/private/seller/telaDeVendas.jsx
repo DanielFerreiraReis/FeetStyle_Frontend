@@ -1,9 +1,13 @@
 import BarraSuperior from "../../../components/paginaVendas/BarraSuperior.jsx";
-import ImageViewer from "../../../UI/ImageViewer.jsx";
+import ImagemViewerOutput from "../../../UI/ImageViewerOutput.jsx";
 import styles from "../../../styles/TelaVendas.module.css";
 // import { SiZend } from "react-icons/si";
 
 const TelaDeVendas = () => {
+  const preview = null;
+  //posterior mente usar o userState para passar valor pelo Backend preview e setpreview;
+
+
   return (
     <div className={styles.organization}>
       <BarraSuperior />
@@ -11,9 +15,11 @@ const TelaDeVendas = () => {
         {/* COLUNA ESQUERDA - Imagem e Tabela */}
         <div className={styles.leftColumn}>
           <div className={styles.imageSection}>
-            <ImageViewer label="Imagem do Produto"/>
+            <ImagemViewerOutput
+              imageUrl={preview || null}
+              label="Imagem do Produto"
+            />
           </div>
-
           <div className={styles.tableSection}>
             <table className={styles.itemsTable}>
               <thead>
@@ -98,7 +104,9 @@ const TelaDeVendas = () => {
             </div>
           </div>
 
-          <button className={styles.addCartButton}>ADICIONAR NO CARRINHO</button>
+          <button className={styles.addCartButton}>
+            ADICIONAR NO CARRINHO
+          </button>
         </div>
       </div>
     </div>

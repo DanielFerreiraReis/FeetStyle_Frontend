@@ -1,34 +1,46 @@
 import { createContext, useContext, useState } from "react";
 
-// Cria o contexto
 const FormContext = createContext();
 
-// Hook para consumir o contexto
 export const useFormStatus = () => {
   const context = useContext(FormContext);
-  if (!context) {
-    throw new Error("useFormStatus deve ser usado dentro de um FormProvider");
-  }
+  if (!context) throw new Error("useFormStatus deve ser usado dentro de um FormProvider");
   return context;
 };
 
-// Provider que envolve os componentes que precisam acessar o status e os dados
 export const FormProvider = ({ children }) => {
-  const [status, setStatus] = useState({}); // Marca etapas preenchidas
-  const [data, setData] = useState({});     // Armazena todos os valores do formulário
+  const [status, setStatus] = useState({});
+  const [data, setData] = useState({});
 
-  // Atualiza o progresso de cada etapa
   const updateStatus = (stepPath, value) => {
-    setStatus(prev => ({ ...prev, [stepPath]: value }));
+    setStatus((prev) => ({ ...prev, [stepPath]: value }));
   };
 
-  // Atualiza valores do formulário (inputs controlados)
   const updateData = (key, value) => {
-    setData(prev => ({ ...prev, [key]: value }));
+    setData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  // ✅ Função genérica: checa se todos os campos de um "step" estão preenchidos
+  const isStepValid = (requiredFields = []) => {
+    return requiredFields.every((field) => data[field] && data[field].toString().trim() !== "");
+  };
+
+  // ✅ Função global: todos os passos obrigatórios estão completos
+  const isFormValid = (steps) => {
+    return steps.every((step) => status[step] === true);
   };
 
   return (
-    <FormContext.Provider value={{ status, updateStatus, data, updateData }}>
+    <FormContext.Provider
+      value={{
+        status,
+        updateStatus,
+        data,
+        updateData,
+        isStepValid,
+        isFormValid,
+      }}
+    >
       {children}
     </FormContext.Provider>
   );

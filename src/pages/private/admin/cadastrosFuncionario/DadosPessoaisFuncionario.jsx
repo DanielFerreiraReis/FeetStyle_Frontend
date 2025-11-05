@@ -1,49 +1,130 @@
-import { useEffect } from 'react';
-import { useFormStatus } from '../../../../context/FormContext';
-import styles from '../../../../styles/subRotesCss/DadosPessoaisFuncionario.module.css';
+import { useEffect, useState } from "react";
+import InputCadastro from "../../../../components/componentesCadastro/InputCadastro";
+import ImagemViewer from "../../../../UI/ImagemViewerInput";
+import { useFormStatus } from "../../../../context/FormContext";
+import styles from "../../../../styles/subRotesCss/DadosPessoaisFuncionario.module.css";
 
 const DadosPessoaisFuncionario = () => {
-  const { updateStatus, data, updateData } = useFormStatus();
+  const { data, updateData, updateStatus, isStepValid } = useFormStatus();
+  const [foto, setFoto] = useState(null);
+  const [fotoPreview, setFotoPreview] = useState(null);
+
+  // agora a foto é obrigatória
+  const requiredFields = [
+    "foto",
+    "nome",
+    "cpf",
+    "telefone",
+    "email",
+    "status",
+    "cargo",
+    "dataAdmissao",
+    "salario",
+    "role",
+  ];
 
   useEffect(() => {
-    updateStatus('dados-pessoais', true); // Marca essa etapa como preenchida
-  }, []);
+    // ✅ agora verifica se todos os campos (incluindo foto) estão preenchidos
+    const valid = isStepValid(requiredFields);
+    updateStatus("dados-pessoais", valid);
+  }, [data, foto]);
+
+  const handleImageChange = (file, preview) => {
+    setFoto(file);
+    setFotoPreview(preview);
+    updateData("foto", file); // guarda o próprio arquivo
+  };
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Dados Pessoais do Funcionário</h2>
-      <form className={styles.form}>
-        <input type="text" placeholder="Nome" required className={styles.input}
-          value={data.nome || ''} onChange={e => updateData('nome', e.target.value)} />
-        <input type="tel" placeholder="Telefone" required className={styles.input}
-          value={data.telefone || ''} onChange={e => updateData('telefone', e.target.value)} />
-        <input type="email" placeholder="Email" required className={styles.input}
-          value={data.email || ''} onChange={e => updateData('email', e.target.value)} />
-        <select required className={styles.select}
-          value={data.status || ''} onChange={e => updateData('status', e.target.value)}>
-          <option value="">Status</option>
-          <option value="1">Ativo</option>
-          <option value="0">Inativo</option>
-        </select>
-        <input type="text" placeholder="Cargo" required className={styles.input}
-          value={data.cargo || ''} onChange={e => updateData('cargo', e.target.value)} />
-        <input type="date" placeholder="Data de Admissão" required className={styles.input}
-          value={data.admissao || ''} onChange={e => updateData('admissao', e.target.value)} />
-        <input type="date" placeholder="Data de Demissão" className={styles.input}
-          value={data.demissao || ''} onChange={e => updateData('demissao', e.target.value)} />
-        <input type="number" step="0.01" placeholder="Salário" required className={styles.input}
-          value={data.salario || ''} onChange={e => updateData('salario', e.target.value)} />
-        <input type="text" placeholder="CPF" required className={styles.input}
-          value={data.cpf || ''} onChange={e => updateData('cpf', e.target.value)} />
-        <input type="text" placeholder="URL da Foto" required className={styles.input}
-          value={data.foto || ''} onChange={e => updateData('foto', e.target.value)} />
-        <select required className={styles.select}
-          value={data.funcao || ''} onChange={e => updateData('funcao', e.target.value)}>
-          <option value="">Função</option>
-          <option value="0">Funcionário</option>
-          <option value="1">Admin</option>
-        </select>
-      </form>
+      <h2 className={styles.titulo}>Dados Pessoais</h2>
+
+      <ImagemViewer
+        imageUrl={fotoPreview}
+        onImageChange={handleImageChange}
+        required
+      />
+
+      <div className={styles.grid}>
+        <InputCadastro
+          type="text"
+          placeholder="Nome completo"
+          value={data.nome || ""}
+          onChange={(v) => updateData("nome", v)}
+        />
+        <InputCadastro
+          type="cpf"
+          placeholder="CPF"
+          value={data.cpf || ""}
+          onChange={(v) => updateData("cpf", v)}
+        />
+        <InputCadastro
+          type="telefone"
+          placeholder="Telefone"
+          value={data.telefone || ""}
+          onChange={(v) => updateData("telefone", v)}
+        />
+        <InputCadastro
+          type="email"
+          placeholder="E-mail"
+          value={data.email || ""}
+          onChange={(v) => updateData("email", v)}
+        />
+
+        <InputCadastro
+          type="select"
+          placeholder="Status"
+          value={data.status || ""}
+          onChange={(v) => updateData("status", v)}
+          options={[
+            { value: 1, label: "Ativo" },
+            { value: 0, label: "Inativo" },
+          ]}
+        />
+
+        <InputCadastro
+          type="select"
+          placeholder="Cargo"
+          value={data.cargo || ""}
+          onChange={(v) => updateData("cargo", v)}
+          options={[
+            { value: "Atendente", label: "Atendente" },
+            { value: "Gerente", label: "Gerente" },
+            { value: "Vendedor", label: "Vendedor" },
+          ]}
+        />
+
+        <InputCadastro
+          type="date"
+          placeholder="Data de Admissão"
+          value={data.dataAdmissao || ""}
+          onChange={(v) => updateData("dataAdmissao", v)}
+        />
+        <InputCadastro
+          type="date"
+          placeholder="Data de Demissão"
+          value={data.dataDemissao || ""}
+          onChange={(v) => updateData("dataDemissao", v)}
+        />
+        <InputCadastro
+          type="number"
+          step="0.01"
+          placeholder="Salário (R$)"
+          value={data.salario || ""}
+          onChange={(v) => updateData("salario", v)}
+        />
+
+        <InputCadastro
+          type="select"
+          placeholder="Nível de Acesso"
+          value={data.role || ""}
+          onChange={(v) => updateData("role", v)}
+          options={[
+            { value: 0, label: "Funcionário" },
+            { value: 1, label: "Administrador" },
+          ]}
+        />
+      </div>
     </div>
   );
 };

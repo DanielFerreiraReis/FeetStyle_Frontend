@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 600;
+  color: #1e3a8a; /* azul escuro */
+  font-size: 0.95rem;
+}
+
+.imageBox {
+  width: 180px;
+  height: 180px;
+  border: 2px solid #1e3a8a;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4ff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
