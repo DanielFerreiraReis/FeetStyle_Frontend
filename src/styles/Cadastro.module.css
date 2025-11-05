@@ -1,64 +1,88 @@
-/* components/FormLayout.css */
+/* Reset básico */
 body, html {
   margin: 0;
   padding: 0;
   overflow: hidden;
   font-family: 'Segoe UI', sans-serif;
+  background-color: #f5faff;
 }
 
+/* Layout principal da página de cadastro */
 .formLayout {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background: #f5faff;
 }
 
+/* TopBar com botões de etapas */
 .topBar {
   display: flex;
-  background: #0078d4;
-  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #0078d4;
+  padding: 1rem 2rem;
   gap: 1rem;
+  border-bottom: 3px solid #005a9e;
 }
 
-.topBar button {
-  background: white;
+/* Botões de etapa */
+.stepButton {
+  background-color: white;
   color: #0078d4;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
-.topBar button.active {
-  background: #005a9e;
+.stepButton:hover {
+  background-color: #e6f0fa;
+}
+
+.active {
+  background-color: #005a9e;
   color: white;
 }
 
+/* Corpo do formulário */
 .formBody {
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 3rem;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
+/* Rodapé fixo com botão de envio */
 .formFooter {
-  padding: 1rem;
-  background: #e6f0fa;
+  padding: 1rem 2rem;
+  background-color: #e6f0fa;
+  border-top: 1px solid #cce0ff;
   text-align: right;
 }
 
+/* Botão de envio */
 .submitButton {
-  background: #0078d4;
+  background-color: #0078d4;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  border-radius: 4px;
+  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #005a9e;
 }
 
 .submitButton:disabled {
-  background: #a0c4e3;
+  background-color: #a0c4e3;
   cursor: not-allowed;
 }

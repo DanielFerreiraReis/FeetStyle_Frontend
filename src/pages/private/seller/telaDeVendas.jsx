@@ -7,7 +7,6 @@ const TelaDeVendas = () => {
   const preview = null;
   //posterior mente usar o userState para passar valor pelo Backend preview e setpreview;
 
-
   return (
     <div className={styles.organization}>
       <BarraSuperior />

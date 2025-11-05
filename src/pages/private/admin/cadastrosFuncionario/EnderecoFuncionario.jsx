@@ -42,7 +42,7 @@ const EnderecoFuncionario = () => {
 
         <InputCadastro
           type="text"
-          placeholder="Detalhamento (complemento, bloco, etc)"
+          placeholder="Detalhamento (complemento)"
           value={data.detalhamentoEndereco || ""}
           onChange={(v) => updateData("detalhamentoEndereco", v)}
         />

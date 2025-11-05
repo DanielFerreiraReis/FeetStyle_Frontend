@@ -1,5 +1,5 @@
 import styles from "../styles/cssUi/ImagemViewerOutput.module.css";
-import defaultImage from "../assets/images/testePadrao.jpg";
+import defaultImage from "../assets/images/manoPeixada.jpg";
 
 const ImagemViewerOutput = ({ imageUrl, label = "Imagem" }) => {
   const displayImage = imageUrl || defaultImage;

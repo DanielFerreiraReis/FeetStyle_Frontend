@@ -1,44 +1,71 @@
 import { createContext, useContext, useState } from "react";
 
+// Cria o contexto
 const FormContext = createContext();
 
+// Hook personalizado para usar o contexto
 export const useFormStatus = () => {
   const context = useContext(FormContext);
-  if (!context) throw new Error("useFormStatus deve ser usado dentro de um FormProvider");
+  if (!context) {
+    throw new Error("useFormStatus deve ser usado dentro de um FormProvider");
+  }
   return context;
 };
 
+// Provider que engloba o formulário
 export const FormProvider = ({ children }) => {
-  const [status, setStatus] = useState({});
+  // Armazena todos os dados dos formulários
   const [data, setData] = useState({});
 
-  const updateStatus = (stepPath, value) => {
-    setStatus((prev) => ({ ...prev, [stepPath]: value }));
+  // Armazena o status (se cada etapa está válida ou não)
+  const [status, setStatus] = useState({});
+
+  // 🔹 Agora também armazena imagem e preview globalmente
+  const [foto, setFoto] = useState(null);
+  const [fotoPreview, setFotoPreview] = useState(null);
+
+  // Atualiza o campo de dados
+  const updateData = (field, value) => {
+    setData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
-  const updateData = (key, value) => {
-    setData((prev) => ({ ...prev, [key]: value }));
+  // Atualiza o status de uma etapa
+  const updateStatus = (step, isValid) => {
+    setStatus((prev) => ({
+      ...prev,
+      [step]: isValid,
+    }));
   };
 
-  // ✅ Função genérica: checa se todos os campos de um "step" estão preenchidos
-  const isStepValid = (requiredFields = []) => {
-    return requiredFields.every((field) => data[field] && data[field].toString().trim() !== "");
+  // Verifica se todos os campos obrigatórios de uma etapa estão preenchidos
+  const isStepValid = (fields) => {
+    return fields.every((field) => {
+      const value = field === "foto" ? foto : data[field];
+      return value !== null && value !== undefined && value !== "";
+    });
   };
 
-  // ✅ Função global: todos os passos obrigatórios estão completos
+  // Verifica se todas as etapas estão válidas
   const isFormValid = (steps) => {
-    return steps.every((step) => status[step] === true);
+    return steps.every((step) => status[step]);
   };
 
   return (
     <FormContext.Provider
       value={{
-        status,
-        updateStatus,
         data,
         updateData,
+        status,
+        updateStatus,
         isStepValid,
         isFormValid,
+        foto,
+        setFoto,
+        fotoPreview,
+        setFotoPreview,
       }}
     >
       {children}

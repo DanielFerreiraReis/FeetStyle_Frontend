@@ -1,39 +1,56 @@
+/* Container principal do componente */
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.preview {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 2px dashed #3b82f6;
+/* Label do campo */
+.label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0078d4;
+}
+
+/* Área clicável para imagem */
+.imageBox {
+  width: 160px;
+  height: 160px;
+  border: 2px dashed #0078d4;
+  border-radius: 12px;
+  background-color: #f5faff;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
-  overflow: hidden;
-  background: #f9fafb;
-  transition: 0.3s;
+  transition: border-color 0.3s ease;
 }
 
-.preview:hover {
-  background: #eef5ff;
-  transform: scale(1.03);
+.imageBox:hover {
+  border-color: #005a9e;
 }
 
-.preview img {
+/* Imagem de pré-visualização */
+.image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 }
 
+/* Texto de placeholder */
 .placeholder {
-  color: #3b82f6;
-  font-size: 0.9rem;
+  color: #7a9cc3;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 0.5rem;
 }
 
-.hiddenInput {
-  display: none;
+/* Layout horizontal para inputs ao lado da imagem */
+:global(.dadosPessoaisGrid) {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
 }

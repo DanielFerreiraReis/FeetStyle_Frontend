@@ -1,4 +1,4 @@
-import styles from '../../styles/subRotesCss/DadosPessoaisFuncionario.module.css';
+import styles from '../../styles/subRotesCss/InputCadastro.module.css';
 
 const formatValue = (type, value) => {
   switch (type) {
@@ -42,7 +42,7 @@ const InputCadastro = ({
         value={value || ""}
         onChange={(e) => onChange(e.target.value)}
       >
-        <option value="">{placeholder}</option>
+        <option value="" disabled selected hidden>{placeholder}</option>
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
