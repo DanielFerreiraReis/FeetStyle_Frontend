@@ -12,17 +12,23 @@ export const useFormStatus = () => {
   return context;
 };
 
-// Provider que envolve os componentes que precisam acessar o status
+// Provider que envolve os componentes que precisam acessar o status e os dados
 export const FormProvider = ({ children }) => {
-  const [status, setStatus] = useState({});
+  const [status, setStatus] = useState({}); // Marca etapas preenchidas
+  const [data, setData] = useState({});     // Armazena todos os valores do formulário
 
-  // Exemplo de função que marca o progresso dos passos
+  // Atualiza o progresso de cada etapa
   const updateStatus = (stepPath, value) => {
-    setStatus((prev) => ({ ...prev, [stepPath]: value }));
+    setStatus(prev => ({ ...prev, [stepPath]: value }));
+  };
+
+  // Atualiza valores do formulário (inputs controlados)
+  const updateData = (key, value) => {
+    setData(prev => ({ ...prev, [key]: value }));
   };
 
   return (
-    <FormContext.Provider value={{ status, updateStatus }}>
+    <FormContext.Provider value={{ status, updateStatus, data, updateData }}>
       {children}
     </FormContext.Provider>
   );

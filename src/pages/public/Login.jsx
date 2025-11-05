@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FaCircleUser, FaLock, FaLockOpen } from 'react-icons/fa6';
 import ModalFeedback from '../../UI/ModalFeedBack';
+import { loginUser } from '../../api/LoginAPi';
 import styles from '../../styles/login.module.css';
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -24,40 +25,28 @@ const Login = () => {
       return;
     }
 
-    try {
-      //espera resposta de localhost Xampp: http://localhost/BackEndLojaDeSapatos/src/api/login.php
-      const response = await fetch('http://localhost/BackEndLojaDeSapatos/src/api/login.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user, senha }),
-      });
+    const data = await loginUser(user, senha);
 
-      const data = await response.json();
-      console.log(data);
-
-      if (response.ok && data.success) {
-        login(data.role);
-        switch (data.role) {
-          case 'admin':
-            navigate('/dashboard');
-            break;
-          case 'vendedor':
-            navigate('/TelaDeVendas')
-            break;
-          default: 
-            setModalMessage('cargo não reconhecido');
-            break;
-        }
-      } else {
-        setModalMessage(data.message || 'Usuário ou senha inválidos');
+    if (data.success) {
+      login(data.role);
+      switch (data.role) {
+        case 'admin':
+          navigate('/dashboard');
+          break;
+        case 'vendedor':
+          navigate('/TelaDeVendas');
+          break;
+        default:
+          setModalMessage('Cargo não reconhecido');
+          break;
       }
-    } catch (error) {
-      console.error('Erro na requisição:', error);
-      setModalMessage('Erro de conexão com o servidor');
-    } finally {
-      setLoading(false);
+    } else {
+      setModalMessage(data.message || 'Usuário ou senha inválidos');
     }
+
+    setLoading(false);
   };
+
 
   return (
     <main className={styles.container}>
