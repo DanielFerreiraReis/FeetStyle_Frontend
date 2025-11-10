@@ -5,7 +5,7 @@ import styles from "../../../styles/TelaVendas.module.css";
 
 const TelaDeVendas = () => {
   const preview = null;
-  //posterior mente usar o userState para passar valor pelo Backend preview e setpreview;
+  //posterior mente usar o userState para passar valor pelo Backend (preview e setpreview);
 
   return (
     <div className={styles.organization}>

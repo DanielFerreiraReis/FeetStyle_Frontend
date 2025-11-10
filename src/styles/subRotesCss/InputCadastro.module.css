@@ -1,43 +1,84 @@
-.input {
-  width: 100%;
-  padding: 0.75rem 1rem;
+/* ===== Estilo base dos rótulos ===== */
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   font-size: 1rem;
-  border: 1px solid #cce0ff;
-  border-radius: 6px;
-  background-color: #f5faff;
-  color: #003366;
-  transition: border-color 0.3s ease;
+  font-weight: 500;
+  color: #0078d4;
+  transition: color 0.3s ease;
+  width: 100%;
 }
 
-.input:focus {
-  outline: none;
-  border-color: #0078d4;
-  background-color: #ffffff;
+.label span {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  font-size: 20px;
 }
 
+.label:focus-within {
+  color: #005ea0;
+}
+
+/* Exibe o * vermelho quando for campo obrigatório */
+.label.required span::after {
+  content: " *";
+  color: #e63946;
+}
+
+/* ===== Input padrão ===== */
+.input,
 .select {
   width: 100%;
   padding: 0.75rem 1rem;
   font-size: 1rem;
-  /* margin-left: 30px; */
   border: 1px solid #cce0ff;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #f5faff;
   color: #003366;
-  appearance: none;
-  transition: border-color 0.3s ease;
-}
-
-.input, .select {
+  transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
+.input:focus,
 .select:focus {
   outline: none;
   border-color: #0078d4;
   background-color: #ffffff;
+  box-shadow: 0 0 6px rgba(0, 120, 212, 0.25);
 }
 
+/* Placeholder com tom suave */
 ::placeholder {
   color: #7a9cc3;
+}
+
+/* Remove aparência padrão dos selects */
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%230078D4' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .label {
+    align-items: center;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .input,
+  .select {
+    width: 90%;
+  }
+}
+
+/* ===== Hover opcional para UX ===== */
+.input:hover,
+.select:hover {
+  border-color: #99c9ff;
 }
