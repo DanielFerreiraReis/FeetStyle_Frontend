@@ -4,7 +4,7 @@ import TopBarCadastro from "../../../components/componentesCadastro/TopBarCadast
 import FooterCadastro from "../../../components/componentesCadastro/FooterCadastro";
 import styles from "../../../styles/Cadastro.module.css";
 import { cadastrarFuncionario } from "../../../api/CadastroFuncionarioAPI";
-
+  
 const Cadastro = ({ steps }) => {
   const { data, isFormValid } = useFormStatus();
   const allSteps = ["dados-pessoais", "endereco"];
@@ -12,15 +12,12 @@ const Cadastro = ({ steps }) => {
 
   const handleSubmit = async () => {
     try {
-      // Verifica se há imagem no contexto
-      const foto = data.fotoArquivo || null;
-
-      // Envia para o backend
-      const result = await cadastrarFuncionario(data, foto);
+      const result = await cadastrarFuncionario(data);
 
       if (result.success) {
         alert("✅ Funcionário cadastrado com sucesso!");
         console.log("Retorno do servidor:", result);
+        alert(`✅ Funcionário cadastrado com sucesso!\nID: ${result.id}`);
       } else {
         alert(`❌ Erro ao cadastrar: ${result.message || "Erro desconhecido"}`);
       }

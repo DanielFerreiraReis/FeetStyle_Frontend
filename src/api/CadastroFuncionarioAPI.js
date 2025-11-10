@@ -1,19 +1,17 @@
-// CadastroFuncionarioAPI.js
-export const cadastrarFuncionario = async (data, foto) => {
+export const cadastrarFuncionario = async (data) => {
   try {
     const formData = new FormData();
 
     // Adiciona todos os dados do formulário
     for (const key in data) {
-      formData.append(key, data[key]);
+      if (key === "fotoArquivo" && data[key]) {
+        formData.append("foto", data[key]); // nome esperado pelo backend
+      } else {
+        formData.append(key, data[key]);
+      }
     }
 
-    // Adiciona o arquivo da imagem, se houver
-    if (foto) {
-      formData.append("foto", foto);
-    }
-
-    const response = await fetch("http://localhost/backend/cadastrarFuncionario.php", {
+    const response = await fetch("http://127.0.0.1/backendlojadesapatos/src/api/cadastrarFuncionario.php", {
       method: "POST",
       body: formData,
     });

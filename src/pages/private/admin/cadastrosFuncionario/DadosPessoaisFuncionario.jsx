@@ -32,7 +32,7 @@ const DadosPessoaisFuncionario = () => {
     setFotoPreview(preview);
     updateData("foto", file); // guarda o próprio arquivo
   };
-
+  
   return (
     <div className={styles.container}>
       <h2 className={styles.titulo}>Dados Pessoais</h2>
