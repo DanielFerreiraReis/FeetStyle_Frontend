@@ -3,7 +3,7 @@ import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/private/admin/Dashboard';
 import Cadastro from '../pages/private/admin/Cadastro';
 import DadosPessoaisFuncionario from '../pages/private/admin/cadastrosFuncionario/DadosPessoaisFuncionario';
-import EnderecoFuncionario from '../pages/private/admin/cadastrosFuncionario/EnderecoFuncionario';
+import Endereco from '../pages/private/admin/utilsCadastro/Endereco';
 import { FormProvider } from '../context/FormContext';
 
 const funcionarioSteps = [
@@ -38,7 +38,7 @@ const adminRoutes = [
         element={<Cadastro steps={funcionarioSteps} />}
       >
         <Route path="dados-pessoais" element={<DadosPessoaisFuncionario />} />
-        <Route path="endereco" element={<EnderecoFuncionario />} />
+        <Route path="endereco" element={<Endereco />} />
       </Route>
     </Route>
   </Route>,

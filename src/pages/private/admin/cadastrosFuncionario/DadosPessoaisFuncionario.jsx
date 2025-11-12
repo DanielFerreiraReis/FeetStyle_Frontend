@@ -3,7 +3,7 @@ import InputCadastro from "../../../../components/componentesCadastro/InputCadas
 import ImagemViewer from "../../../../UI/ImagemViewerInput";
 import { useFormStatus } from "../../../../context/FormContext";
 import styles from "../../../../styles/subRotesCss/DadosPessoaisFuncionario.module.css";
-import { campos } from "../../../../utils/campos";
+import { camposFuncionario } from "../../../../utils/camposFuncionario";
 
 const DadosPessoaisFuncionario = () => {
   const {
@@ -53,7 +53,7 @@ const DadosPessoaisFuncionario = () => {
         />
 
         <div className={styles.grid}>
-          {campos.map(({ key, ...props }) => (
+          {camposFuncionario.map(({ key, ...props }) => (
             <InputCadastro
               key={key}
               {...props}

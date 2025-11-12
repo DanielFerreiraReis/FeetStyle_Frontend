@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from '../../styles/subRotesCss/InputCadastro.module.css';
 
 const formatValue = (type, value) => {
@@ -25,7 +26,7 @@ const formatValue = (type, value) => {
 
 const InputCadastro = ({
   type = "text",
-  placeholder,
+  placeholder = "...",
   value,
   onChange,
   options = [],
@@ -33,6 +34,10 @@ const InputCadastro = ({
   label,
   required = false
 }) => {
+
+  // controla o tipo caso o tipo seja date
+  const [tipo, setTipo] = useState("text");
+  
   // Função para inputs com máscara
   const handleChange = (e) => {
     const formatted = formatValue(type, e.target.value);
@@ -54,12 +59,31 @@ const InputCadastro = ({
           </option>
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
-              {opt.label}
+              {opt.texto}
             </option>
           ))}
         </select>
       </label>
     );
+  }
+
+  //se for um dataCustom
+  if (type === "dataCustom") {
+    return (
+    <label className={`${styles.label} ${required ? styles.required : ""}`}>
+      <span>{label}</span>
+    <input
+      type={tipo}
+      placeholder="Data"
+      step={step}
+      className={styles.input}
+      value={value || ""}
+      onChange={handleChange}
+      onFocus={() => setTipo("date")}
+      onBlur={(e) => !e.target.value && setTipo("text")}
+    />
+    </label>
+  );
   }
 
   // Se for um input comum

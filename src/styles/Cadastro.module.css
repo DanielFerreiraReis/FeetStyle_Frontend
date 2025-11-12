@@ -18,7 +18,7 @@ body, html {
 /* TopBar com botões de etapas */
 .topBar {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   background-color: #0078d4;
   padding: 1rem 2rem;
