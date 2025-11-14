@@ -1,3 +1,5 @@
+/* ============================ BOTÃO PADRÃO ============================ */
+
 .button {
   display: flex;
   align-items: center;
@@ -6,17 +8,57 @@
   color: inherit;
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
-  transition: all 0.2s ease;
+  position: relative;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
+/* Hover */
 .button:hover {
   background: rgba(0, 0, 0, 0.08);
 }
 
-.active {
-  background: #007bff;
-  color: #fff;
+
+/* ============================ ACTIVE NORMAL ============================ */
+
+.button.active {
+  background: #007bff !important;
+  color: #fff !important;
+  padding: 0.6rem 0.8rem;   /* garante que fique igual ao hover */
+  border-radius: 8px;
+  transform: none !important;
 }
+
+
+/* ============================ ACTIVE COLAPSADO ============================ */
+
+.collapsed.button {
+  justify-content: center;
+  padding: 0.6rem;
+}
+
+/* Ajusta active quando colapsado */
+.collapsed.button.active {
+  padding: 0.6rem;
+  justify-content: center;
+}
+
+/* Círculo azul atrás do ícone (igual sidebar) */
+.collapsed.button.active::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%) scale(1.05);
+  background-color: rgba(0, 123, 255, 0.30);
+  opacity: 1;
+  pointer-events: none;
+}
+
+
+/* ============================ ITENS INTERNOS ============================ */
 
 .icon {
   display: flex;
@@ -26,9 +68,4 @@
 
 .label {
   white-space: nowrap;
-}
-
-.collapsed {
-  justify-content: center;
-  padding: 0.6rem;
 }

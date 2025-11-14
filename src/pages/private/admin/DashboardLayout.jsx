@@ -4,9 +4,10 @@ import SideBarNavegation from "../../../components/componentesDashbord/SideNaveg
 
 const DashboardLayout = () => {
   return (
-    <div >
-      <SideBarNavegation/>
-      <main>
+    <div className={styles.layout}>
+      <SideBarNavegation />
+
+      <main className={styles.main}>
         <Outlet />
       </main>
     </div>

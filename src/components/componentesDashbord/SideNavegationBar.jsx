@@ -3,7 +3,7 @@
 // ======================================================================
 
 // Hooks do React para estado e efeitos colaterais
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Ícone padrão do logo
 import { FcMultipleDevices } from "react-icons/fc";
@@ -35,6 +35,8 @@ import styles from "../../styles/cssDashboard/SideBarNavegation.module.css";
 // ======================================================================
 
 const SideBarNavegation = () => {
+  //referencio para o colapso da SIdebar caso a área de click false
+  const sidebarRef = useRef(null);
 
   // Sidebar retraída (true) ou expandida (false)
   const [collapsed, setCollapsed] = useState(false);
@@ -62,6 +64,31 @@ const SideBarNavegation = () => {
 
 
   // ======================================================================
+  // EFEITO — Detecta quando a o click não for em uma área da Sidebar (colapsa/expande)
+  // ======================================================================
+    useEffect(() => {
+    function handleClickOutside(event) {
+      // console.log("document click:", event.type, event.target); // para debugar
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        if (isMobile) {
+          setMenuOpen(false);
+        } else {
+          setCollapsed(true);
+        }
+      }
+    }
+
+    // Usamos click e touchstart para cobrir dispositivos touch.
+    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isMobile]);
+
+  // ======================================================================
   // FUNÇÕES
   // ======================================================================
 
@@ -79,8 +106,6 @@ const SideBarNavegation = () => {
       toggleSidebar();
     }
   };
-
-
   // ======================================================================
   // RENDERIZAÇÃO DO COMPONENTE
   // ======================================================================
@@ -91,7 +116,10 @@ const SideBarNavegation = () => {
       ================================================================ */}
       <button
         className={`${styles.hamburgerButton} ${menuOpen ? styles.active : ""}`}
-        onClick={toggleMobileMenu}
+        onClick={(e) => {
+          e.stopPropagation(); // impede que o 'click' chegue ao document
+          toggleMobileMenu();
+        }}
         title={collapsed ? "Expandir menu" : "Recolher menu"}
         aria-label="Abrir menu"
       >
@@ -106,12 +134,16 @@ const SideBarNavegation = () => {
           SIDEBAR PRINCIPAL
       ================================================================ */}
       <aside
+        ref={sidebarRef}
         className={`
           ${styles.sidebar}
           ${collapsed ? styles.sidebarCollapsed : styles.sidebarExpanded}
           ${darkMode ? styles.dark : styles.light}
           ${menuOpen ? styles.menuOpen : ""}
         `}
+
+        // evita que cliques dentro do aside borbulhem até o document
+        onClick={(e) => e.stopPropagation()}
       >
         {/* ==================== Cabeçalho / Logo ==================== */}
         <div className={`${styles.header} ${collapsed ? styles.headerCollapsed : ""}`}>
@@ -175,4 +207,4 @@ const SideBarNavegation = () => {
   );
 };
 
-export default SideBarNavegation;
+export default SideBarNavegation; 
