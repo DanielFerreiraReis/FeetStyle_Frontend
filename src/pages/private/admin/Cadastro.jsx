@@ -2,10 +2,13 @@ import { Outlet } from "react-router-dom";
 import { useFormStatus } from "../../../context/FormContext";
 import TopBarCadastro from "../../../components/componentesCadastro/TopBarCadastro";
 import FooterCadastro from "../../../components/componentesCadastro/FooterCadastro";
+import ModalFeedBack from "../../../UI/ModalFeedBack"
 import styles from "../../../styles/Cadastro.module.css";
 import { cadastrarFuncionario } from "../../../api/CadastroFuncionarioAPI";
+import { useState } from "react";
   
 const Cadastro = ({ steps }) => {
+  const [modalMessage, setmodalMessage] = useState('');
   const { data, isFormValid } = useFormStatus();
   const allSteps = ["dados-pessoais", "endereco"];
   const canSubmit = isFormValid(allSteps);
@@ -15,15 +18,15 @@ const Cadastro = ({ steps }) => {
       const result = await cadastrarFuncionario(data);
 
       if (result.success) {
-        alert("✅ Funcionário cadastrado com sucesso!");
+        setmodalMessage("✅ Funcionário cadastrado com sucesso!");
         console.log("Retorno do servidor:", result);
-        alert(`✅ Funcionário cadastrado com sucesso!\nID: ${result.id}`);
+        setmodalMessage(`✅ Funcionário cadastrado com sucesso!\nID: ${result.id}`);
       } else {
-        alert(`❌ Erro ao cadastrar: ${result.message || "Erro desconhecido"}`);
+        setmodalMessage(`❌ Erro ao cadastrar: ${result.message || "Erro desconhecido"}`);
       }
     } catch (error) {
       console.error("Erro ao enviar formulário:", error);
-      alert("❌ Erro de conexão com o servidor.");
+      setmodalMessage("❌ Erro de conexão com o servidor.");
     }
   };
 
@@ -36,6 +39,8 @@ const Cadastro = ({ steps }) => {
       </div>
 
       <FooterCadastro canSubmit={canSubmit} onSubmit={handleSubmit} />
+
+    <ModalFeedBack message={modalMessage} onClose={() => setmodalMessage('')} />
     </div>
   );
 };

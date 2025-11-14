@@ -1,6 +1,6 @@
 import { Outlet, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import Dashboard from '../pages/private/admin/Dashboard';
+import DashboardLayout from '../pages/private/admin/DashboardLayout'; // layout com sidebar
 import Cadastro from '../pages/private/admin/Cadastro';
 import DadosPessoaisFuncionario from '../pages/private/admin/cadastrosFuncionario/DadosPessoaisFuncionario';
 import Endereco from '../pages/private/admin/utilsCadastro/Endereco';
@@ -17,14 +17,14 @@ const adminRoutes = [
     path="/dashboard"
     element={
       <PrivateRoute allowedRoles={['admin']}>
-        <Outlet /> 
+        <DashboardLayout />
       </PrivateRoute>
     }
   >
-    {/* Rota padrão do dashboard */}
-    <Route index element={<Dashboard />} />
+    {/* Página inicial do dashboard */}
+    <Route index element={<h1> OLÀ</h1>} />
 
-    {/* Cadastro de funcionário */}
+    {/* Fluxo de cadastro de funcionário */}
     <Route
       path="cadastro"
       element={

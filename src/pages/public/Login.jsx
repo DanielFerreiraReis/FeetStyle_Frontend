@@ -2,7 +2,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FaCircleUser, FaLock, FaLockOpen } from 'react-icons/fa6';
-import ModalFeedback from '../../UI/ModalFeedBack';
+import ModalFeedBack from '../../UI/ModalFeedBack';
 import { loginUser } from '../../api/LoginAPi';
 import styles from '../../styles/login.module.css';
 
@@ -94,7 +94,7 @@ const Login = () => {
         </button>
       </form>
 
-      <ModalFeedback message={modalMessage} onClose={() => setModalMessage('')} />
+      <ModalFeedBack message={modalMessage} onClose={() => setModalMessage('')} />
     </main>
   );
 };

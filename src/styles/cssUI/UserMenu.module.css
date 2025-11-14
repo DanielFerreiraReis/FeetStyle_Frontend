@@ -1,0 +1,149 @@
+/* =====================================================================
+   USER MENU — CONTAINER PRINCIPAL
+   - Serve como wrapper do botão do usuário e do dropdown.
+   - O `position: relative` permite que o dropdown seja posicionado
+     corretamente em relação a este container.
+   - `overflow: visible` impede cortes no dropdown.
+   ===================================================================== */
+.userMenuContainer {
+  position: relative;
+  width: 100%;
+  overflow: visible; /* evita cortar o dropdown */
+  z-index: 20000; /* garante que fique acima da sidebar */
+}
+
+
+/* =====================================================================
+   BOTÃO DO USER MENU (linha com avatar + nome)
+   - É o botão que o usuário clica para abrir o dropdown.
+   - Layout em linha, com espaçamento e hover suave.
+   - `cursor: pointer` deixa claro que é clicável.
+   ===================================================================== */
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: var(--text-color, #fff);
+}
+
+.userMenu:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+/* =====================================================================
+   ICONES E AVATAR
+   - Avatar circular com ajuste da imagem
+   - Borda sutil no avatar para destaque
+   ===================================================================== */
+.userIcon,
+.userAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Borda sutil no avatar de usuário */
+.userAvatar {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+
+/* =====================================================================
+   NOME DO USUÁRIO
+   ===================================================================== */
+.username {
+  font-weight: 500;
+}
+
+
+/* =====================================================================
+   DROPDOWN DO USER MENU
+   - Abriga os itens de ação da conta.
+   - Usa `position: absolute` dentro de .userMenuContainer.
+   - Fundo com sombra e bordas arredondadas.
+   - Z-index extremamente alto para garantir que sempre aparece.
+   ===================================================================== */
+.dropdown {
+  position: absolute;
+  width: 180px;
+  background: var(--sidebar-bg, #222);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  z-index: 999999; /* acima de tudo */
+  overflow: visible;
+}
+
+
+/* =====================================================================
+   POSICIONAMENTO DO DROPDOWN
+   - openDown → menu abre para baixo
+   - openUp → menu abre para cima
+   ===================================================================== */
+.openDown {
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+}
+
+.openUp {
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 8px;
+}
+
+
+/* =====================================================================
+   LISTA DE AÇÕES DO DROPDOWN
+   ===================================================================== */
+.dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown li {
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  color: var(--text-color, #fff);
+  transition: background 0.2s ease;
+}
+
+.dropdown li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* =====================================================================
+   BOTÃO DE SAIR (Sign Out)
+   - Destaque em vermelho
+   ===================================================================== */
+.signout {
+  padding: 0.4rem 0.6rem;
+  color: #ff6b6b;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+}
+
+.signout:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.3rem;
+}
+
+
+/* =====================================================================
+   LINHA DIVISÓRIA ENTRE ITENS
+   ===================================================================== */
+hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}

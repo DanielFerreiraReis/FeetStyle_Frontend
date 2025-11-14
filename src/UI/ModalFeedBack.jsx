@@ -1,6 +1,6 @@
 import styles from '../styles/cssUI/ModalFeedback.module.css';
 
-const ModalFeedback = ({ message, onClose }) => {
+const ModalFeedBack = ({ message, onClose }) => {
   if (!message) return null;
 
   return (
@@ -13,4 +13,4 @@ const ModalFeedback = ({ message, onClose }) => {
   );
 };
 
-export default ModalFeedback;
+export default ModalFeedBack;
