@@ -1,0 +1,73 @@
+/* =========================================================
+   VARIÁVEIS DO TEMA (USADAS PELA SIDEBAR E TOPBAR)
+========================================================= */
+
+/* 🌑 DARK THEME */
+body
+/* =========================== */
+/*        TEMA DARK            */
+/* =========================== */
+[data-theme="Dark"] {
+  /* Fundo geral */
+  --bg-main: #0f0f0f;
+
+  /* Fundo da topbar → a TopBar usa var(--bg-topbar) */
+  --bg-topbar: rgba(20, 20, 20, 0.75);
+
+  /* Bordas → a TopBar usa var(--border-color) */
+  --border-color: #2a2a2a;
+
+  /* Textos da topbar → usa var(--text-main) e var(--text-soft) */
+  --text-main: #ffffff;
+  --text-soft: #bcbcbc;
+
+  /* Inputs (search bar e botões da topbar) */
+  --input-bg: rgba(20, 20, 20, 0.6);
+  --input-text: #e1e1e1;
+
+  /* Hover → a TopBar usa var(--bg-card) */
+  --bg-card: rgba(40, 40, 40, 0.65);
+
+  /* Ícones */
+  --icon-color: #e1e1e1;
+
+  /* Fundo de sidebar (caso ela use também) */
+  --bg-sidebar: rgba(18, 18, 18, 0.9);
+
+  /* Fundo de cards gerais */
+  --bg-glass: rgba(20, 20, 20, 0.7);
+
+  /* Sombras */
+  --shadow-light: rgba(0, 0, 0, 0.45);
+
+  /* Transição (TopBar usa var(--transition)) */
+  --transition: 0.25s ease;
+}
+
+
+/* ☀ LIGHT THEME */
+body[data-theme="Light"] {
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #dedede;
+  --sidebar-hover: #f3f3f6;
+  --sidebar-text: #202020;
+
+  --topbar-bg: #ffffff;
+  --topbar-text: #1b1d22;
+
+  --toggle-bg: #ececf1;
+  --toggle-icon: #1b1d22;
+
+  --page-bg: #f5f6fa;
+  --page-text: #1b1d22;
+}
+
+/* =========================================================
+   APLICAÇÃO GLOBAL DO TEMA
+========================================================= */
+
+body {
+  background: var(--page-bg);
+  color: var(--page-text);
+  transition: background 0.25s ease, color 0.25s ease;
+}

@@ -7,6 +7,17 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  background-color: #111; /* mantém coerência com o tema dark */
+}
+
+/* Wrapper geral para organizar Topbar + conteúdo */
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  margin-left: 80px; /* largura da sidebar */
+  transition: margin-left 0.3s ease;
 }
 
 /* ============================
@@ -15,19 +26,15 @@
 .main {
   flex: 1;
   background-color: #f5f5f5;
-  transition: margin-left 0.3s ease;
-}
-
-/* Quando a sidebar está EXPANDIDA */
-.main {
-  margin-left: 80px; /* largura da sidebar expandida */
+  padding: 1.2rem;
+  overflow-y: auto;
 }
 
 /* ============================
    MOBILE
    ============================ */
 @media (max-width: 768px) {
-  .main {
+  .contentWrapper {
     margin-left: 0 !important;
   }
 }

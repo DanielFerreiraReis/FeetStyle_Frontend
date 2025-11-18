@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import { FcMultipleDevices } from "react-icons/fc";
 
 // Ícones para tema e menu mobile
-import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 
 // Lista de botões da sidebar (icones, textos, rotas)
 import { buttonsSidebar } from "../../utils/buttonsSidebar";
@@ -19,6 +19,11 @@ import ButtonNavegation from "./ButtonNavegation";
 
 // Menu do usuário
 import UserMenu from "../../UI/UserMenu";
+
+// Botão toggle que altera o tema da aplicação
+import ThemeToggleButton from "../../UI/ThemeToggleButton";
+
+import { useTheme } from "../../context/ThemeContext";
 
 // Estilos da sidebar
 import styles from "../../styles/cssDashboard/SideBarNavegation.module.css";
@@ -38,11 +43,12 @@ const SideBarNavegation = () => {
   //referencio para o colapso da SIdebar caso a área de click false
   const sidebarRef = useRef(null);
 
+  // Controle de tema 
+  const { theme } = useTheme();
+  const darkMode = theme === "Dark";
+
   // Sidebar retraída (true) ou expandida (false)
   const [collapsed, setCollapsed] = useState(false);
-
-  // Controle de tema (true = escuro)
-  const [darkMode, setDarkMode] = useState(true);
 
   // Controle do menu mobile aberto/fechado
   const [menuOpen, setMenuOpen] = useState(false);
@@ -68,8 +74,14 @@ const SideBarNavegation = () => {
   // ======================================================================
     useEffect(() => {
     function handleClickOutside(event) {
-      // console.log("document click:", event.type, event.target); // para debugar
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      const target = event.target;
+
+      // Impede que o sidebar feche ao clicar no botão hambúrguer
+      if (target.closest(`.${styles.hamburgerButton}`)) {
+        return;
+      }
+
+      if (sidebarRef.current && !sidebarRef.current.contains(target)) {
         if (isMobile) {
           setMenuOpen(false);
         } else {
@@ -78,15 +90,14 @@ const SideBarNavegation = () => {
       }
     }
 
-    // Usamos click e touchstart para cobrir dispositivos touch.
-    document.addEventListener("click", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    // pointerdown captura antes do click e obedece stopPropagation
+    document.addEventListener("pointerdown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("pointerdown", handleClickOutside);
     };
   }, [isMobile]);
+
 
   // ======================================================================
   // FUNÇÕES
@@ -94,9 +105,6 @@ const SideBarNavegation = () => {
 
   // Alterna sidebar expandida/colapsada
   const toggleSidebar = () => setCollapsed(!collapsed);
-
-  // Alterna entre tema claro e escuro
-  const toggleTheme = () => setDarkMode(!darkMode);
 
   // Abre ou fecha o menu mobile
   const toggleMobileMenu = () => {
@@ -179,15 +187,7 @@ const SideBarNavegation = () => {
 
         {/* ==================== Botão de modo escuro/claro ==================== */}
         <div className={styles.themeWrapper}>
-          <button
-            className={`${styles.themeToggle} ${collapsed ? styles.compact : ""}`}
-            onClick={toggleTheme}
-            aria-pressed={!darkMode}
-            title={darkMode ? "Ativar tema claro" : "Ativar tema escuro"}
-          >
-            <FiSun className="fi-sun" />
-            <FiMoon className="fi-moon" />
-          </button>
+          <ThemeToggleButton collapsed={collapsed} />
         </div>
 
         <hr className={styles.separator} />
