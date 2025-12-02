@@ -1,10 +1,11 @@
-import './index.css';
-import AppRoutes from './routes/AppRoutes';
+import "./index.css";
+import AppRoutes from "./routes/AppRoutes";
+import useBlockReload from "./utils/useBlockReload";
 
 function App() {
-  return (
-      <AppRoutes/>
-  );
+  useBlockReload();
+  
+  return <AppRoutes />;
 }
 
 export default App;

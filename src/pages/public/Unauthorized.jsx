@@ -5,7 +5,7 @@ const Unauthorized = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.caixa}>
       <h1>Acesso negado</h1>
       <p>Você não tem permissão para acessar esta página.</p>
       <button onClick={() => navigate(-1)}>Voltar</button>

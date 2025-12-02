@@ -6,7 +6,7 @@ const AuthContext = createContext(undefined);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [token, setToken] = useState(sessionStorage.getItem('token') || null);
 
   useEffect(() => {
     if (token) {
@@ -30,14 +30,14 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setUserRole(role);
     setToken(receivedToken);
-    localStorage.setItem('token', receivedToken);
+    sessionStorage.setItem('token', receivedToken);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     setUserRole(null);
     setToken(null);
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   };
 
   return (
