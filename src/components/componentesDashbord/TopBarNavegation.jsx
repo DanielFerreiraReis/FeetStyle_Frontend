@@ -1,15 +1,15 @@
-import {FiSearch } from "react-icons/fi";
+import { FiSearch, FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "../../styles/cssDashboard/TopBarNavegation.module.css";
 
 const TopBarNavegation = () => {
-  const { theme, toggleTheme } = useTheme();
+  //hook do contexto
+  const { theme } = useTheme();
   const darkMode = theme === "Dark";
-
   return (
-    <header className={`${styles.topbar} ${darkMode ? styles.dark : styles.light}`}>
-      <div className={styles.left}></div>
-
+    <header
+      className={`${styles.topbar} ${darkMode ? styles.dark : styles.light}`}
+    >
       <div className={styles.right}>
         {/* SEARCH */}
         <div className={styles.searchContainer}>
@@ -20,12 +20,6 @@ const TopBarNavegation = () => {
             className={styles.input}
           />
         </div>
-
-        {/* MODE BUTTON */}
-        {/* <button className={styles.themeButton} onClick={toggleTheme}>
-          {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-        </button> */}
-
       </div>
     </header>
   );

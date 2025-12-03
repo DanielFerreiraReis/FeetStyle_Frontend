@@ -1,40 +1,97 @@
-/* ============================
-   CONTAINER PRINCIPAL
-   ============================ */
+/* =============================
+   LAYOUT GERAL
+============================= */
 .layout {
   display: flex;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
+  background: #f5f5f5;
+  transition: all 0.3s ease;
   position: relative;
-  background-color: #111; /* mantém coerência com o tema dark */
 }
 
-/* Wrapper geral para organizar Topbar + conteúdo */
+/* Sidebar aberta */
+.open {
+  --sidebar-width: 0;
+}
+
+/* Sidebar fechada */
+.closed {
+  --sidebar-width: 80px;
+}
+
+/* =============================
+   SIDEBAR
+============================= */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  transition: width 0.3s ease;
+  z-index: 10;
+  position: relative;
+}
+
+/* =============================
+   CONTEÚDO
+============================= */
 .contentWrapper {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  height: 100vh;
-  margin-left: 80px; /* largura da sidebar */
+  margin-left: var(--sidebar-width);
   transition: margin-left 0.3s ease;
+  /* overflow: hidden; */
+  background: inherit;
+  position: relative;
+  z-index: 1;
+  height: 100vh;
 }
 
-/* ============================
-   ÁREA PRINCIPAL (OUTLET)
-   ============================ */
 .main {
   flex: 1;
-  background-color: #f5f5f5;
-  padding: 1.2rem;
   overflow-y: auto;
+  min-height: 0;
+  background: inherit;
+  width: 100%;
 }
 
-/* ============================
+.contentWrapper,
+.main {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =============================
    MOBILE
-   ============================ */
+============================= */
 @media (max-width: 768px) {
+  .layout {
+    /* flex-direction: column; */
+    width: 100%;
+    height: 100vh;
+  }
+
+  /* Conteúdo principal respeita a largura da sidebar */
   .contentWrapper {
-    margin-left: 0 !important;
+    margin-left: -240px; 
+    width: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    overflow: hidden;
+  }
+
+  .main {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    min-height: 0;
+    background: inherit;
   }
 }

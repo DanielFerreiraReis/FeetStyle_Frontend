@@ -6,13 +6,19 @@ import { ThemeProvider } from './context/ThemeContext.jsx';
 import App from './App.jsx';
 import './index.css';
 import './App.css';
+import { LayoutProvider } from './context/LayoutContext.jsx';
+import { DashboardProvider } from './context/DashboardContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
-          <App />
+          <LayoutProvider>
+            <DashboardProvider>
+              <App />
+            </DashboardProvider>
+          </LayoutProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>

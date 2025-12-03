@@ -4,9 +4,8 @@
 
 /* Contêiner principal da sidebar */
 .sidebar {
-  position: fixed;                /* Fixa na tela */
-  top: 0;
-  left: 0;
+  position: relative;
+  flex-shrink: 0;                /* Fixa na tela */
   height: 100vh;                  /* Ocupa toda a altura */
   color: #fff;
   display: flex;
