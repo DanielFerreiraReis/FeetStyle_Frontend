@@ -1,0 +1,379 @@
+/* CadastrosCalcados.module.css */
+
+/* ========================================================= */
+/* --- AJUSTE GLOBAL: TELA CHEIA E CORES --- */
+/* ========================================================= */
+
+/* 1. Cores e Variáveis (Tema Light e Dark) */
+
+/* Tema Light */
+body[data-theme="Light"] {
+  --background-form: #ffffff;
+  --input-background: #f0f0f5;
+  --text-color: #1a1a1a;
+  --border-color: #cccccc;
+  --accent-color: #007bff; /* Azul primário */
+  --accent-hover: #0056b3; 
+  --secondary-accent: #28a745; 
+  --secondary-accent-hover: #1e7e34;
+  --modal-backdrop: rgba(0, 0, 0, 0.5); /* Cor da sobreposição do modal */
+  --modal-background: #ffffff;
+}
+
+/* Tema Dark */
+body[data-theme="Dark"] {
+  --background-form: #2c3e50; 
+  --input-background: #34495e;
+  --text-color: #ecf0f1;
+  --border-color: #55708a;
+  --accent-color: #3498db; 
+  --accent-hover: #2980b9; 
+  --secondary-accent: #2ecc71; 
+  --secondary-accent-hover: #27ae60;
+  --modal-backdrop: rgba(0, 0, 0, 0.7); /* Cor da sobreposição do modal */
+  --modal-background: #34495e;
+}
+
+/* 2. Remoção do Scroll da Janela (APENAS DESKTOP) */
+/* Garante que o body ocupe 100% da viewport e que o scroll seja bloqueado */
+html, body {
+    height: 100%; /* Novo: Garante que ambos ocupem 100% da altura */
+}
+
+body {
+    overflow-x: hidden !important; /* Remove barra horizontal sempre */
+    overflow-y: hidden !important; /* Mantém barra vertical bloqueada no desktop */
+}
+
+
+/* ========================================================= */
+/* --- LAYOUT PRINCIPAL E CABEÇALHO --- */
+/* ========================================================= */
+
+.form {
+  max-width: 100%; 
+  width: 100%;
+  height: 100%; /* Ocupa 100% da altura menos margens */
+  padding: 20px 30px; 
+  background: var(--background-form);
+  color: var(--text-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  
+  display: flex;
+  flex-direction: column; /* Organiza em coluna: Header, ContentWrapper */
+  box-sizing: border-box; 
+}
+
+.formHeader {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+    flex-shrink: 0; 
+}
+
+.title {
+  color: var(--accent-color);
+  font-size: 1.8em;
+  padding-bottom: 0; 
+  margin-bottom: 0;
+  flex-grow: 1; 
+}
+
+/* Botão Oculto (Alternar Tema) */
+.buttonHidden {
+    display: none !important; 
+    visibility: hidden;
+}
+
+
+/* ========================================================= */
+/* --- WRAPPER LATERAL (Foto ao lado dos Inputs) --- */
+/* ========================================================= */
+
+.contentWrapper {
+    display: flex;
+    gap: 30px;
+    flex-grow: 1; /* Ocupa o espaço vertical restante */
+    min-height: 0; /* Permite que o conteúdo interno gerencie seu próprio scroll */
+    padding-bottom: 20px; /* Garante que o fim do scroll não fique grudado */
+}
+
+/* 1. IMAGEM (Coluna da esquerda) */
+.imagemContainer {
+    flex-basis: 350px; /* Largura fixa da coluna da imagem */
+    flex-shrink: 0; 
+    padding: 10px;
+    background-color: var(--input-background);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    /* Garante que a ImagemViewerInput se estenda */
+    display: flex; 
+    flex-direction: column;
+}
+
+/* 2. GRID DE INPUTS (Coluna da direita com scroll) */
+.formGridContainer {
+    flex-grow: 1; 
+    flex-basis: auto;
+    /* Única área que rola se o conteúdo verticalmente exceder */
+    overflow-y: auto; 
+    padding-right: 15px; 
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Campos internos em 2 colunas */
+    gap: 20px; 
+    padding-bottom: 20px;
+}
+
+/* ========================================================= */
+/* --- BOTÃO SALVAR DENTRO DO GRID (Canto Inferior Direito) --- */
+/* ========================================================= */
+
+.buttonSubmitGrid {
+    /* Faz o botão ocupar todas as colunas do grid */
+    grid-column: 1 / -1; 
+    /* Alinha o botão à direita dentro do espaço que ele ocupa */
+    justify-self: end; 
+    
+    width: 250px; 
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--accent-color);
+    color: #fff;
+    font-size: 1.1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.buttonSubmitGrid:hover {
+    background-color: var(--accent-hover);
+}
+
+
+/* ========================================================= */
+/* --- ESTILOS DE INPUTS E BOTÕES INLINE --- */
+/* ========================================================= */
+
+.label {
+  display: block;
+  margin-top: 5px; 
+  font-weight: 600;
+  font-size: 0.95em;
+  color: var(--text-color);
+}
+
+.select,
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px; 
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1em;
+  background-color: var(--input-background);
+  color: var(--text-color);
+  box-sizing: border-box; 
+}
+
+.inputGroup {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px; 
+  align-items: flex-end; 
+}
+
+/* Botão Inline (➕) */
+.buttonInline {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--secondary-accent);
+  color: #fff;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  height: 40px; 
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.buttonInline:hover {
+  background-color: var(--secondary-accent-hover);
+}
+
+
+/* ========================================================= */
+/* --- ESTILOS DO MODAL (SOBREPOSIÇÃO) --- */
+/* ========================================================= */
+
+/* Fundo Escurecido que cobre toda a tela */
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-backdrop);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Novo: Permite que o conteúdo do modal role internamente se for muito alto */
+    overflow-y: auto; 
+    /* Z-index alto para garantir que fique acima de todos os elementos da tela principal */
+    z-index: 1000; 
+    /* Efeito de transição suave */
+    transition: opacity 0.3s ease;
+}
+
+/* Conteúdo do Modal */
+.modalContent {
+    background-color: var(--modal-background);
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 500px; /* Limita a largura para melhor visualização */
+    /* Novo: Garante que o modal fique no centro verticalmente, mesmo com scroll */
+    margin: 20px auto; 
+    /* Garante que o conteúdo do modal apareça acima do backdrop */
+    z-index: 1001; 
+    transform: translateY(0);
+    transition: transform 0.3s ease-out;
+}
+
+.modalContent .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modalContent h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: var(--accent-color);
+}
+
+.modalCloseButton {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.modalCloseButton:hover {
+    opacity: 1;
+}
+
+/* Estilos para os botões e inputs internos do Modal */
+.modalContent .input, .modalContent .select {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modalContent .modalButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.modalContent .buttonCancel, .modalContent .buttonSave {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modalContent .buttonCancel {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.modalContent .buttonCancel:hover {
+    background-color: #c82333;
+}
+
+.modalContent .buttonSave {
+    background-color: var(--secondary-accent);
+    color: #fff;
+}
+
+.modalContent .buttonSave:hover {
+    background-color: var(--secondary-accent-hover);
+}
+
+
+/* ========================================================= */
+/* --- RESPONSIVIDADE (MOBILE E TELAS MENORES) --- */
+/* ========================================================= */
+
+@media (max-width: 1024px) {
+    /* Layout Vertical para Mobile */
+    .contentWrapper {
+        flex-direction: column; 
+        gap: 20px;
+    }
+    
+    /* Reativa o scroll do corpo da página em mobile */
+    body {
+        /* Permite scroll em mobile, se o conteúdo exceder a tela */
+        overflow-y: auto !important; 
+    }
+
+    /* O formulário agora pode crescer e rolar */
+    .form {
+        height: auto; 
+        max-height: none; 
+        overflow-y: visible;
+        margin-bottom: 10px;
+        padding: 15px;
+    }
+
+    /* Remove scroll interno quando o wrapper já está rolando */
+    .formGridContainer {
+        overflow-y: visible; 
+        padding-right: 0;
+    }
+    
+    .imagemContainer {
+        flex-basis: auto; 
+    }
+
+    .formGrid {
+        grid-template-columns: 1fr; /* 1 coluna para os inputs em mobile */
+    }
+
+    /* Botão Salvar (Em mobile, ocupa toda a largura na parte inferior do grid) */
+    .buttonSubmitGrid {
+        width: 100%;
+        justify-self: stretch; /* Ocupa toda a largura da coluna */
+        grid-column: 1 / -1;
+    }
+    
+    /* Ajuste do modal para telas menores */
+    .modalContent {
+        max-width: 95%;
+        padding: 20px;
+    }
+}
