@@ -1,0 +1,67 @@
+/* CadastrosProdutos.module.css */
+
+.form {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--background-form);
+  color: var(--text-color);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.select,
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Tema Light */
+body[data-theme="Light"] {
+  --background-form: #f9f9f9;
+  --text-color: #333;
+  --border-color: #ccc;
+  --accent-color: #2196F3;
+  --accent-hover: #1976D2;
+}
+
+/* Tema Dark */
+body[data-theme="Dark"] {
+  --background-form: #222;
+  --text-color: #eee;
+  --border-color: #555;
+  --accent-color: #4CAF50;
+  --accent-hover: #388E3C;
+}
