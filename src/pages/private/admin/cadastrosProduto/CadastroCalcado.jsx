@@ -154,8 +154,8 @@ function CadastroCalcado() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <header className={styles.formHeader}>
           <h2 className={styles.title}>
-            <FeetStyle className={styles.meuIcone} size={80} /> Cadastro de
-            Calçado
+            <FeetStyle className={styles.meuIcone} size={80} />
+            Cadastro de Calçado
           </h2>
         </header>
 
@@ -225,20 +225,78 @@ function CadastroCalcado() {
               />
 
               {/* Cor */}
-              <InputField
-                label="Cor do Calçado:"
+              <SelectWithAdd
+                label="Cor do calçado:"
                 name="corCalcado"
-                value={data.corCalcado}
+                value={data.corCalcado || ""}
                 onChange={handleChange}
-                placeholder="Ex: Vermelho, Preto..."
+                options={[
+                  { id: "C1", cor: "Preto" },
+                  { id: "C2", cor: "Branco" },
+                  { id: "C3", cor: "Nude/Bege" },
+                  { id: "C4", cor: "Marrom" },
+                  { id: "C5", cor: "Caramelo" },
+                  { id: "C6", cor: "Chocolate" },
+                  { id: "C7", cor: "Cinza" },
+                  { id: "C8", cor: "Off-White" },
+                  { id: "C9", cor: "Vermelho" },
+                  { id: "C10", cor: "Bordô/Vinho" },
+                  { id: "C11", cor: "Azul Marinho" },
+                  { id: "C12", cor: "Prata" },
+                  { id: "C13", cor: "Dourado" },
+                ]}
+                optionLabel="cor"
+                optionValue="id"
               />
 
               {/* Tamanho */}
-              <InputField
-                label="Tamanho"
+              <SelectWithAdd
+                label="Tamanho:"
                 name="tamanhoCalcado"
-                value={data.tamanhoCalcado}
+                value={data.tamanhoCalcado || ""}
                 onChange={handleChange}
+                options={[
+                  { id: "T13", tamanho: 13 },
+                  { id: "T14", tamanho: 14 },
+                  { id: "T15", tamanho: 15 },
+                  { id: "T16", tamanho: 16 },
+                  { id: "T17", tamanho: 17 },
+                  { id: "T18", tamanho: 18 },
+                  { id: "T19", tamanho: 19 },
+                  { id: "T20", tamanho: 20 },
+                  { id: "T21", tamanho: 21 },
+                  { id: "T22", tamanho: 22 },
+                  { id: "T23", tamanho: 23 },
+                  { id: "T24", tamanho: 24 },
+                  { id: "T25", tamanho: 25 },
+                  { id: "T26", tamanho: 26 },
+                  { id: "T27", tamanho: 27 },
+                  { id: "T28", tamanho: 28 },
+                  { id: "T29", tamanho: 29 },
+                  { id: "T30", tamanho: 30 },
+                  { id: "T31", tamanho: 31 },
+                  { id: "T32", tamanho: 32 },
+                  { id: "T33", tamanho: 33 },
+                  { id: "T34", tamanho: 34 },
+                  { id: "T35", tamanho: 35 },
+                  { id: "T36", tamanho: 36 },
+                  { id: "T37", tamanho: 37 },
+                  { id: "T38", tamanho: 38 },
+                  { id: "T39", tamanho: 39 },
+                  { id: "T40", tamanho: 40 },
+                  { id: "T41", tamanho: 41 },
+                  { id: "T42", tamanho: 42 },
+                  { id: "T43", tamanho: 43 },
+                  { id: "T44", tamanho: 44 },
+                  { id: "T45", tamanho: 45 },
+                  { id: "T46", tamanho: 46 },
+                  { id: "T47", tamanho: 47 },
+                  { id: "T48", tamanho: 48 },
+                  { id: "T49", tamanho: 49 },
+                  { id: "T50", tamanho: 50 },
+                ]}
+                optionLabel="tamanho"
+                optionValue="id"
               />
 
               {/* Preço */}

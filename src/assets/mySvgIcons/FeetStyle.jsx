@@ -4,7 +4,7 @@ const FeetStyle = ({ size = 32, className = "", ...props }) => (
     width={size}
     height={size}
     className={className}
-    viewBox="300 110 390 400"
+    viewBox="321 111 394 400"
     
     {...props}
   >
