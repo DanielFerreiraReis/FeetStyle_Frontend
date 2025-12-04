@@ -76,10 +76,15 @@ body {
 
 .title {
   color: var(--accent-color);
-  font-size: 1.8em;
-  padding-bottom: 0; 
+  font-size: 1.8rem;
+  padding-bottom: 0;
+  padding-top: 0; 
   margin-bottom: 0;
+  margin-top: 0;
+  gap: 10px;
   flex-grow: 1; 
+  display: flex;
+  align-items: flex-end;
 }
 
 /* Botão Oculto (Alternar Tema) */
@@ -134,6 +139,9 @@ body {
 /* --- BOTÃO SALVAR DENTRO DO GRID (Canto Inferior Direito) --- */
 /* ========================================================= */
 
+@media screen {
+    
+}
 .buttonSubmitGrid {
     /* Faz o botão ocupar todas as colunas do grid */
     grid-column: 1 / -1; 
@@ -142,7 +150,8 @@ body {
     
     width: 250px; 
     padding: 12px 20px;
-    margin-top: 20px;
+    bottom: 0px;
+    right: 45px;
     border: none;
     border-radius: 6px;
     font-weight: bold;
@@ -188,11 +197,12 @@ body {
   display: flex;
   gap: 10px;
   margin-top: 4px; 
-  align-items: flex-end; 
+  align-items: flex-end;
 }
 
 /* Botão Inline (➕) */
 .buttonInline {
+  /* margin-top: 20px; */
   padding: 8px 15px;
   border: none;
   border-radius: 6px;
@@ -203,7 +213,6 @@ body {
   transition: background-color 0.3s ease;
   white-space: nowrap;
   height: 40px; 
-  align-self: flex-start;
   flex-shrink: 0;
 }
 
@@ -322,6 +331,11 @@ body {
 .modalContent .buttonSave:hover {
     background-color: var(--secondary-accent-hover);
 }
+
+.meuIcone {
+  color: var(--accent-color); 
+}
+
 
 
 /* ========================================================= */
