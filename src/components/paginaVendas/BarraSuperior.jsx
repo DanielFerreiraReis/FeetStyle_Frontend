@@ -1,4 +1,4 @@
-import styles from "../../styles/telaVendasCSS/BarraSuperior.module.css";
+import styles from "../../styles/BarraSuperior.module.css";
 
 const BarraSuperior = ({ onVoltar }) => {
   return (
