@@ -4,6 +4,7 @@
 
 // Hook de estado, referência e efeitos do React
 import { useState, useRef, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 // Ícone padrão de usuário (caso não tenha foto)
 import { FaUserCircle } from "react-icons/fa";
@@ -82,7 +83,9 @@ const UserMenu = ({ collapsed, userImage }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
 
   }, []);
-
+  
+  //função logout sendo usada para deslogar o usuário
+  const { logout } = useAuth();
 
   // ======================================================================
   // RENDERIZAÇÃO DO COMPONENTE
@@ -125,7 +128,7 @@ const UserMenu = ({ collapsed, userImage }) => {
           <hr />
 
           {/* botão de sair */}
-          <div className={styles.signout}>Sign out</div>
+          <div onClick={() => logout()} className={styles.signout}>Sign out</div>
         </div>
       )}
 

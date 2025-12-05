@@ -3,6 +3,7 @@ import ImagemViewerOutput from "../../../UI/ImageViewerOutput.jsx";
 import styles from "../../../styles/TelaVendas.module.css";
 import { useState } from "react";
 import { useFormStatus } from "../../../context/FormContext.jsx";
+import {useAuth} from "../../../context/AuthContext.jsx";
 
 const TelaDeVendas = () => {
   const { fotoPreview, setFotoPreview } = useFormStatus();
@@ -80,9 +81,13 @@ const TelaDeVendas = () => {
     });
   };
 
+
+  //função de logout atribuida ao votão voltar
+  const { logout } = useAuth();
+  
   return (
     <div className={styles.organization}>
-      <BarraSuperior />
+      <BarraSuperior onVoltar={logout}/>
       <div className={styles.mainContainer}>
         {/* Coluna esquerda */}
         <div className={styles.leftColumn}>
