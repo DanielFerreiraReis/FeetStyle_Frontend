@@ -1,10 +1,10 @@
+import React, { useState, useEffect } from "react";
 import BarraSuperior from "../../../components/paginaVendas/BarraSuperior.jsx";
 import ImagemViewerOutput from "../../../UI/ImageViewerOutput.jsx";
 import CarrinhoTable from "../../../components/paginaVendas/carrinhoTable.jsx";
-import ActionButtons from "../../../components/paginaVendas/ActionButtons.jsx";
 import VendaForm from "../../../components/paginaVendas/VendaForm.jsx";
+import PagamentoModal from "../../../components/paginaVendas/PagamentoModal.jsx";
 import styles from "../../../styles/TelaVendas.module.css";
-import { useState, useEffect } from "react";
 import { useFormStatus } from "../../../context/FormContext.jsx";
 import { useAuth } from "../../../context/AuthContext.jsx";
 
@@ -18,8 +18,9 @@ const TelaDeVendas = () => {
   const [carrinho, setCarrinho] = useState([]);
   const [codigoVenda, setCodigoVenda] = useState("");
   const [mensagemProduto, setMensagemProduto] = useState("Busque um produto");
+  const [showPagamento, setShowPagamento] = useState(false);
 
-  // Função para buscar código da venda no backend
+  // Gerar código da venda
   const gerarCodigoVenda = async () => {
     try {
       const response = await fetch(
@@ -28,8 +29,6 @@ const TelaDeVendas = () => {
       const data = await response.json();
       if (data.success) {
         setCodigoVenda(data.idVenda);
-      } else {
-        console.error("Erro ao gerar código da venda:", data.message);
       }
     } catch (error) {
       console.error("Erro ao gerar código da venda:", error);
@@ -43,13 +42,11 @@ const TelaDeVendas = () => {
   // Buscar produto
   const buscarProduto = async () => {
     if (!codigoProduto) return false;
-
     try {
       const response = await fetch(
         `http://localhost/BackEndLojaDeSapatos/src/api/produto/buscar.php?id=${codigoProduto}`
       );
       const data = await response.json();
-
       if (data.success) {
         setProduto(data.produto);
         setFotoPreview(data.produto.image);
@@ -107,9 +104,21 @@ const TelaDeVendas = () => {
     });
   };
 
-  // Calcular total da compra
-  const calcularTotalCompra = () => {
-    return carrinho.reduce((acc, item) => acc + item.total, 0);
+  // Calcular total
+  const calcularTotalCompra = () =>
+    carrinho.reduce((acc, item) => acc + item.total, 0);
+
+  // Finalizar venda
+  const finalizarVenda = () => {
+    console.log("Venda registrada:", carrinho);
+    setCarrinho([]);
+    setProduto(null);
+    setFotoPreview(null);
+    setCodigoProduto("");
+    setQuantidade(1);
+    setMensagemProduto("Venda finalizada!");
+    gerarCodigoVenda();
+    setShowPagamento(false);
   };
 
   return (
@@ -124,7 +133,6 @@ const TelaDeVendas = () => {
               label="Imagem do Produto"
             />
           </div>
-
           <CarrinhoTable carrinho={carrinho} />
         </div>
 
@@ -142,20 +150,19 @@ const TelaDeVendas = () => {
             mensagemProduto={mensagemProduto}
           />
 
-          {/* Agrupando todos os botões juntos */}
           <div className={styles.buttonsRow}>
             <button
               className={`${styles.actionButton} ${styles.addButton}`}
               onClick={adicionarAoCarrinho}
             >
-              ADICIONAR NO CARRINHO
+              Adicionar no Carrinho
             </button>
 
             <button
               className={`${styles.actionButton} ${styles.payButton}`}
-              onClick={() => console.log("Pagamento")}
+              onClick={() => setShowPagamento(true)}
             >
-              PAGAMENTO
+              Pagamento
             </button>
 
             <button
@@ -170,11 +177,21 @@ const TelaDeVendas = () => {
                 gerarCodigoVenda();
               }}
             >
-              EXCLUIR
+              Excluir
             </button>
           </div>
         </div>
       </div>
+
+      {/* Modal de Pagamento */}
+      {showPagamento && (
+        <PagamentoModal
+          onClose={() => setShowPagamento(false)}
+          onFinalizar={finalizarVenda}
+          carrinho={carrinho}
+          total={calcularTotalCompra()}
+        />
+      )}
     </div>
   );
 };

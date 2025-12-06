@@ -303,3 +303,128 @@
     font-size: 12px;
   }
 }
+
+/* pagamento modal */
+
+/* Overlay escuro */
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(10, 43, 107, 0.8); /* azul escuro translúcido */
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+
+/* Caixa central */
+.modalContent {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 12px;
+  width: 460px;
+  max-width: 95%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  border: 3px solid #0a2b6b; /* borda azul */
+}
+
+/* Botão de fechar */
+.closeButton {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #0a2b6b;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+.closeButton:hover {
+  transform: scale(1.2);
+}
+
+/* Título */
+.modalContent h2 {
+  margin-bottom: 20px;
+  color: #0a2b6b;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Opções de pagamento */
+.paymentOptions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.paymentOption {
+  padding: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 600;
+  color: #0a2b6b;
+  background-color: #f9f9f9;
+}
+
+.paymentOption:hover {
+  border-color: #4ca3ff;
+  background-color: #eef6ff;
+}
+
+.selected {
+  border-color: #00d56a;
+  background-color: #e6fff2;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0, 213, 106, 0.3);
+}
+
+/* Resumo da compra */
+.resumoCompra {
+  text-align: left;
+  margin: 20px 0;
+  padding: 16px;
+  background-color: #f4f8ff;
+  border-radius: 8px;
+  border: 1px solid #dce6f9;
+}
+
+.resumoCompra h3 {
+  margin-bottom: 10px;
+  color: #0a2b6b;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.resumoCompra p {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.resumoCompra ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resumoCompra li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botão registrar venda */
+.modalContent .actionButton {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 700;
+}
