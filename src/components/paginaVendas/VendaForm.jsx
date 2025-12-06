@@ -9,7 +9,30 @@ const VendaForm = ({
   setCodigoProduto,
   buscarProduto,
   calcularTotalCompra,
+  mensagemProduto,
 }) => {
+  // Agrupando mensagens de erro
+  const mensagensErro = [
+    "Produto não encontrado!",
+    "A quantidade mínima é 1",
+    "Busque um produto primeiro!",
+  ];
+
+  const tipoMensagem =
+    mensagemProduto === "Produto encontrado!"
+      ? styles.successBox
+      : mensagensErro.includes(mensagemProduto)
+      ? styles.errorBox
+      : styles.neutralBox;
+
+  // Definindo ícone
+  const icone =
+    mensagemProduto === "Produto encontrado!"
+      ? "✔"
+      : mensagensErro.includes(mensagemProduto)
+      ? "✖"
+      : "";
+
   return (
     <div className={styles.formGrid}>
       <div className={styles.formField}>
@@ -36,7 +59,9 @@ const VendaForm = ({
         <label>TOTAL ITEM R$</label>
         <input
           type="text"
-          value={produto ? (produto.valor_unit * quantidade).toFixed(2) : "0,00"}
+          value={
+            produto ? (produto.valor_unit * quantidade).toFixed(2) : "0,00"
+          }
           disabled
         />
       </div>
@@ -45,6 +70,7 @@ const VendaForm = ({
         <input
           type="number"
           value={quantidade}
+          min={1}
           onChange={(e) => setQuantidade(Number(e.target.value))}
         />
       </div>
@@ -52,15 +78,22 @@ const VendaForm = ({
         <label>VALOR FINAL R$</label>
         <input type="text" value={calcularTotalCompra().toFixed(2)} disabled />
       </div>
-      <div className={styles.formFieldFull}>
+
+      <div className={styles.formField}>
         <label>CÓDIGO DO PRODUTO</label>
         <input
           type="text"
           value={codigoProduto}
           onChange={(e) => setCodigoProduto(e.target.value)}
-          onBlur={buscarProduto}
           onKeyDown={(e) => e.key === "Enter" && buscarProduto()}
         />
+      </div>
+      <div className={styles.formField}>
+        <label>STATUS DO PRODUTO</label>
+        <div className={`${styles.statusBox} ${tipoMensagem}`}>
+          {icone && <span>{icone}</span>}
+          <span className={styles.mensagemTexto}>{mensagemProduto}</span>
+        </div>
       </div>
     </div>
   );

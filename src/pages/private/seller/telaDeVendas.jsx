@@ -17,6 +17,7 @@ const TelaDeVendas = () => {
   const [quantidade, setQuantidade] = useState(1);
   const [carrinho, setCarrinho] = useState([]);
   const [codigoVenda, setCodigoVenda] = useState("");
+  const [mensagemProduto, setMensagemProduto] = useState("Busque um produto");
 
   // Função para buscar código da venda no backend
   const gerarCodigoVenda = async () => {
@@ -41,7 +42,7 @@ const TelaDeVendas = () => {
 
   // Buscar produto
   const buscarProduto = async () => {
-    if (!codigoProduto) return;
+    if (!codigoProduto) return false;
 
     try {
       const response = await fetch(
@@ -52,27 +53,31 @@ const TelaDeVendas = () => {
       if (data.success) {
         setProduto(data.produto);
         setFotoPreview(data.produto.image);
+        setMensagemProduto("Produto encontrado!");
+        return true;
       } else {
         setProduto(null);
         setFotoPreview(null);
-        alert("Produto não encontrado!");
+        setMensagemProduto("Produto não encontrado!");
+        return false;
       }
     } catch (error) {
       console.error("Erro ao buscar produto:", error);
       setProduto(null);
       setFotoPreview(null);
+      setMensagemProduto("Erro ao buscar produto!");
+      return false;
     }
   };
 
   // Adicionar ao carrinho
   const adicionarAoCarrinho = () => {
     if (!produto) {
-      alert("Busque um produto primeiro!");
+      setMensagemProduto("Busque um produto primeiro!");
       return;
     }
-
     if (quantidade < 1) {
-      alert("A quantidade mínima é 1");
+      setMensagemProduto("A quantidade mínima é 1");
       return;
     }
 
@@ -114,21 +119,13 @@ const TelaDeVendas = () => {
         {/* Coluna esquerda */}
         <div className={styles.leftColumn}>
           <div className={styles.imageSection}>
-            <ImagemViewerOutput imageUrl={fotoPreview} label="Imagem do Produto" />
+            <ImagemViewerOutput
+              imageUrl={fotoPreview}
+              label="Imagem do Produto"
+            />
           </div>
 
           <CarrinhoTable carrinho={carrinho} />
-
-          <ActionButtons
-            onExcluir={() => {
-              setCarrinho([]);
-              setProduto(null);
-              setFotoPreview(null);
-              setCodigoProduto("");
-              setQuantidade(1);
-              gerarCodigoVenda();
-            }}
-          />
         </div>
 
         {/* Coluna direita */}
@@ -142,11 +139,40 @@ const TelaDeVendas = () => {
             setCodigoProduto={setCodigoProduto}
             buscarProduto={buscarProduto}
             calcularTotalCompra={calcularTotalCompra}
+            mensagemProduto={mensagemProduto}
           />
 
-          <button className={styles.addCartButton} onClick={adicionarAoCarrinho}>
-            ADICIONAR NO CARRINHO
-          </button>
+          {/* Agrupando todos os botões juntos */}
+          <div className={styles.buttonsRow}>
+            <button
+              className={`${styles.actionButton} ${styles.addButton}`}
+              onClick={adicionarAoCarrinho}
+            >
+              ADICIONAR NO CARRINHO
+            </button>
+
+            <button
+              className={`${styles.actionButton} ${styles.payButton}`}
+              onClick={() => console.log("Pagamento")}
+            >
+              PAGAMENTO
+            </button>
+
+            <button
+              className={`${styles.actionButton} ${styles.deleteButton}`}
+              onClick={() => {
+                setCarrinho([]);
+                setProduto(null);
+                setFotoPreview(null);
+                setCodigoProduto("");
+                setQuantidade(1);
+                setMensagemProduto("Busque um produto");
+                gerarCodigoVenda();
+              }}
+            >
+              EXCLUIR
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,13 +1,22 @@
 import styles from "../../styles/TelaVendas.module.css";
 
-const ActionButtons = ({ onExcluir }) => {
+const ActionButtons = ({ onExcluir, onPagar }) => {
   return (
-    <div className={styles.actionButtons}>
-      <button className={styles.payButton}>PAGAMENTO</button>
-      <button className={styles.deleteButton} onClick={onExcluir}>
+    <>
+      <button
+        className={styles.payButton}
+        onClick={onPagar}
+      >
+        PAGAMENTO
+      </button>
+
+      <button
+        className={styles.deleteButton}
+        onClick={onExcluir}
+      >
         EXCLUIR
       </button>
-    </div>
+    </>
   );
 };
 

@@ -33,9 +33,6 @@ const CarrinhoTable = ({ carrinho }) => {
           )}
         </tbody>
       </table>
-      <div className={styles.tableFooter}>
-        <span>Carrinho: lista de todos os produtos adicionados nesta venda</span>
-      </div>
     </div>
   );
 };
