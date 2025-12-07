@@ -11,8 +11,12 @@ export const cadastrarFuncionario = async (data) => {
       }
     }
 
-    const response = await fetch("http://127.0.0.1/backendlojadesapatos/src/api/cadastrarFuncionario.php", {
+    const response = await fetch("http://127.0.0.1/BackendLojaDeSapatos/index.php/admin/register", {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        "X-Internal-Key": import.meta.env.VITE_API_KEY || "",
+      },
       body: formData,
     });
 

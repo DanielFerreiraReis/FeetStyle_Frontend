@@ -11,9 +11,6 @@ import {
 import FeetStyle from "../../../../assets/mySvgIcons/FeetStyle";
 import InputField from "./InputField";
 import SelectWithAdd from "./SelectWithAdd";
-// ===============================================
-//           COMPONENTE PRINCIPAL
-// ===============================================
 
 function CadastroCalcado() {
   const { data, updateData, foto, setFoto, fotoPreview, setFotoPreview } =
@@ -121,19 +118,36 @@ function CadastroCalcado() {
         dataFabricacao: new Date().toISOString().split("T")[0],
       })
     );
-    formData.append("fotoFile", foto);
+    if (foto) {
+      formData.append("fotoFile", foto);
+    }
+
+    const API = `${API_BASE}cadastrarcalcado`;
+    console.log(`Chamando: ${API}`);
 
     try {
-      const res = await fetch(`${API_BASE}/cadastrarCalcados.php`, {
+      const res = await fetch(API, {
         method: "POST",
-        body: formData, // sem headers!
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token") || ""}`,
+          "X-Internal-Key": import.meta.env.VITE_API_KEY || "",
+        },
+        body: formData, // não defina Content-Type manualmente com FormData
       });
 
-      const result = await res.json();
+      let data;
+      try {
+        // usa clone para permitir fallback caso não seja JSON
+        data = await res.clone().json();
+      } catch {
+        const text = await res.text();
+        throw new Error("Resposta não é JSON: " + text);
+      }
+
       if (res.ok) {
-        alert("Calçado cadastrado com sucesso! ID: " + result.idCalcado);
+        alert("Calçado cadastrado com sucesso! ID: " + data.idCalcado);
       } else {
-        alert("Erro: " + result.error);
+        alert("Erro: " + (data.error || "Falha desconhecida"));
       }
     } catch (error) {
       alert("Erro inesperado ao cadastrar calçado.");
@@ -304,7 +318,7 @@ function CadastroCalcado() {
                 label="Preço (R$)"
                 name="precoSapato"
                 type="number"
-                value={data.precoSapato}
+                value={data.precoSapato || ""}
                 onChange={handleChange}
               />
 
@@ -313,7 +327,7 @@ function CadastroCalcado() {
                 label="Quantidade em Estoque"
                 name="quantidadeEmStoque"
                 type="number"
-                value={data.quantidadeEmStoque}
+                value={data.quantidadeEmStoque || ""}
                 onChange={handleChange}
               />
 
@@ -321,7 +335,7 @@ function CadastroCalcado() {
               <InputField
                 label="ID do Calçado"
                 name="idCalcado"
-                value={data.idCalcado}
+                value={data.idCalcado || ""}
                 onChange={handleChange}
                 placeholder="Digite o ID"
               />

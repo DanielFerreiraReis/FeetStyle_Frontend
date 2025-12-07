@@ -8,7 +8,11 @@ const Home = () => {
   const [darkMode, setDarkMode] = useState(true);
 
   return (
-    <div className={`${styles.homeContainer} ${darkMode ? styles.dark : styles.light}`}>
+    <div
+      className={`${styles.homeContainer} ${
+        darkMode ? styles.dark : styles.light
+      }`}
+    >
       <div className={styles.homeContent}>
         {/* Botão de alternância do tema */}
         <button
@@ -25,9 +29,9 @@ const Home = () => {
         </div>
 
         <p className={styles.homeSubtitle}>
-          Bem-vindo ao <strong>FeetStyle</strong> — um sistema logístico desenvolvido
-          para gerenciar o estoque, as vendas e o controle administrativo de uma loja
-          de sapatos.
+          Bem-vindo ao <strong>FeetStyle</strong> — um sistema logístico
+          desenvolvido para gerenciar o estoque, as vendas e o controle
+          administrativo de uma loja de sapatos.
         </p>
 
         <div className={styles.aboutCard}>
@@ -38,12 +42,35 @@ const Home = () => {
             <strong> IFPA Campus Tucuruí</strong>.
           </p>
           <p>
-            O objetivo é aplicar conceitos de desenvolvimento web e design responsivo,
-            simulando uma aplicação real utilizada em lojas do setor de varejo.
+            O objetivo é aplicar conceitos de desenvolvimento web e design
+            responsivo, simulando uma aplicação real utilizada em lojas do setor
+            de varejo.
           </p>
         </div>
 
-        <button className={styles.button} onClick={() => navigate("/login")}>
+        <button
+          className={styles.button}
+          onClick={async () => {
+            console.log("API chamada");
+
+            try {
+              const res = await fetch(
+                "http://localhost/BackEndLojaDeSapatos/src/database/create_db.php",
+                {
+                  method: "POST",
+                }
+              );
+              const data = await res.json();
+              console.log("Resposta da API:", data);
+
+              navigate("/login");
+
+            } catch (error) {
+              console.error("Erro:", error);
+              console.log("Falha ao conectar ao servidor.");
+            }
+          }}
+        >
           Entrar no Sistema
         </button>
 
@@ -53,7 +80,6 @@ const Home = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Home;
-

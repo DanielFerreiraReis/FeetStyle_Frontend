@@ -1,7 +1,7 @@
 //API de Autenticação de login
 export const loginUser = async (user, senha) => {
   try {
-    const response = await fetch('http://localhost/BackEndLojaDeSapatos/src/api/login.php', {
+    const response = await fetch('http://localhost/BackEndLojaDeSapatos/index.php/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user, senha }),

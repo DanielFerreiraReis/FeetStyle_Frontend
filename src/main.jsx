@@ -11,7 +11,7 @@ import { DashboardProvider } from './context/DashboardContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='/FeetStyle'>
       <AuthProvider>
         <ThemeProvider>
           <LayoutProvider>
