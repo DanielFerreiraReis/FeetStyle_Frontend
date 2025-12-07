@@ -1,4 +1,4 @@
-import { FiSearch, FiSun, FiMoon } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "../../styles/cssDashboard/TopBarNavegation.module.css";
 

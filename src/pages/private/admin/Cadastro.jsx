@@ -46,4 +46,3 @@ const Cadastro = ({ steps }) => {
 };
 
 export default Cadastro;
-

@@ -6,8 +6,14 @@ import DadosPessoaisFuncionario from "../pages/private/admin/cadastrosFuncionari
 import Endereco from "../pages/private/admin/utilsCadastro/Endereco";
 import { FormProvider } from "../context/FormContext";
 import CadastroCalcado from "../pages/private/admin/cadastrosProduto/CadastroCalcado";
+import DadosPessoaisCliente from "../pages/private/admin/cadastrosCliente/DadosPessoaisCliente";
 
 const funcionarioSteps = [
+  { path: "dados-pessoais", label: "Dados Pessoais" },
+  { path: "endereco", label: "Endereço" },
+];
+
+const clienteSteps = [
   { path: "dados-pessoais", label: "Dados Pessoais" },
   { path: "endereco", label: "Endereço" },
 ];
@@ -40,13 +46,31 @@ const adminRoutes = [
     <Route
       path="cadastro"
       element={
-        <FormProvider>
           <Outlet />
-        </FormProvider>
       }
     >
+      {/* Cadastro de Clientes com steps */}
+      <Route
+        path="cliente"
+        element={
+          <FormProvider>
+            <Cadastro steps={clienteSteps} />
+          </FormProvider>
+        }
+      >
+        <Route path="dados-pessoais" element={<DadosPessoaisCliente />} />
+        <Route path="endereco" element={<Endereco />} />
+      </Route>
+
       {/* Cadastro de funcionário com steps */}
-      <Route path="funcionario" element={<Cadastro steps={funcionarioSteps} />}>
+      <Route
+        path="funcionario"
+        element={
+          <FormProvider>
+            <Cadastro steps={funcionarioSteps} />
+          </FormProvider>
+        }
+      >
         <Route path="dados-pessoais" element={<DadosPessoaisFuncionario />} />
         <Route path="endereco" element={<Endereco />} />
       </Route>
