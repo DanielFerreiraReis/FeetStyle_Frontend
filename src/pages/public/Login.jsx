@@ -40,6 +40,7 @@ const Login = () => {
       console.log("Resposta da API:", data);
 
       if (data.success && data.token) {
+        // ✅ ALTERADO: não precisamos passar o ID aqui, pois o AuthContext decodifica o token e extrai user_id
         login(data.role, data.token);
 
         if (data.role === "admin") navigate("/dashboard");
@@ -49,8 +50,9 @@ const Login = () => {
         setModalMessage(data.message || "Usuário ou senha inválidos");
       }
     } catch (error) {
-      setModalMessage("Erro ao conectar com o servidor");
-    }
+  console.error("Erro no login:", error); // ✅ agora o error é usado
+  setModalMessage("Erro ao conectar com o servidor");
+}
 
     setLoading(false);
   };
