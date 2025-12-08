@@ -9,7 +9,8 @@
   --input-text-dark: #ddd;
   --border-color-light: #ddd;
   --border-color-dark: #444;
-  --transition: 0.3s ease;
+  --transition: 0.6s ease;
+  --sidebar-width: 250px;
 }
 
 /* ==============================
@@ -29,9 +30,46 @@
   backdrop-filter: blur(10px);
   border-radius: 0 0 0 20px;
   z-index: 1000;
-  transition: width 0.3s ease, background var(--transition), border var(--transition);
+  gap: 1rem;
+  transition: background var(--transition), border var(--transition);
 }
 
+/* ==============================
+   TOPBAR — animações horizontal refinadas
+============================== */
+.topbarWithSteps {
+  animation: topbarGrowX 2.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+  transform-origin: right center;
+}
+
+@keyframes topbarGrowX {
+  from {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.topbarShrink {
+  animation: topbarShrinkX 1.2s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+  transform-origin: right center;
+}
+
+@keyframes topbarShrinkX {
+  from {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+}
+
+/* Tema */
 .dark {
   background: var(--bg-topbar-dark);
   color: var(--text-main-dark);
@@ -44,20 +82,85 @@
   border-color: var(--border-color-light);
 }
 
-/* LEFT */
-.left .title {
-  font-size: 1.2rem;
-  font-weight: 500;
+/* ==============================
+   STEPS NAVIGATION
+============================== */
+.stepsNav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeSteps 0.35s ease forwards;
+  transform-origin: left center;
 }
 
-/* RIGHT */
+@keyframes fadeSteps {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.stepItem {
+  position: relative;
+  padding: 0.45rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: var(--input-bg-light);
+  color: var(--text-main-light);
+  transition: all 0.25s ease;
+}
+
+.dark .stepItem {
+  background: var(--input-bg-dark);
+  color: var(--text-main-dark);
+}
+
+/* Hover */
+.stepItem:hover {
+  transform: translateY(-2px);
+  background: #5dade2;
+  color: #fff;
+}
+
+
+/* Estado ativo persistente (classe .active) */
+.stepItem.active {
+  background: #3498db;
+  border-color: #2980b9;
+  color: white;
+  box-shadow: 0 3px 10px rgba(52, 152, 219, 0.4);
+  transform: translateY(-1px);
+}
+
+.stepItem.active::after {
+  transform: scaleX(1);
+}
+
+/* Inativos */
+.stepItem:not(.active) {
+  opacity: 0.9;
+}
+
+.stepItem:not(.active):hover {
+  opacity: 1;
+}
+
+/* ==============================
+   RIGHT SIDE
+============================== */
 .right {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-/* SEARCH */
 .searchContainer {
   display: flex;
   align-items: center;
@@ -91,7 +194,9 @@
   width: 120px;
 }
 
-/* BUTTONS */
+/* ==============================
+   THEME BUTTON
+============================== */
 .themeButton {
   background: var(--input-bg-light);
   border: 1px solid var(--border-color-light);
@@ -120,19 +225,29 @@
 @media (max-width: 768px) {
   .topbar {
     width: 100%;
+    height: 60px;
     left: 0;
     padding: 0 1rem;
   }
 
-  .left .title {
-    font-size: 1rem;
+  .stepsWrap {
+    display: flex;
+    justify-content: flex-end;
+    width: 100vh;
+    height: auto;
   }
-
+  
   .searchContainer {
     display: none;
   }
 
   .themeButton {
     padding: 0.4rem;
+  }
+
+  .stepsNav {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end; /* alinha os itens à direita */
   }
 }

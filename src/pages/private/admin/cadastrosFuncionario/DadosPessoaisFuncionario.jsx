@@ -11,29 +11,20 @@ const DadosPessoaisFuncionario = () => {
     updateData,
     updateStatus,
     isStepValid,
-    foto,
-    setFoto,
     fotoPreview,
+    setFoto,
     setFotoPreview,
   } = useFormStatus();
 
+  // Agora os required já vêm diretamente dos campos
   const requiredFields = [
     "foto",
-    "nome",
-    "cpf",
-    "telefone",
-    "email",
-    "status",
-    "cargo",
-    "dataAdmissao",
-    "salario",
-    "role",
+    ...camposFuncionario.filter(c => c.required).map(c => c.key),
   ];
 
   useEffect(() => {
-    const valid = isStepValid(requiredFields);
-    updateStatus("dados-pessoais", valid);
-  }, [data, foto]);
+    updateStatus("dados-pessoais", isStepValid(requiredFields));
+  }, [data, fotoPreview]);
 
   const handleImageChange = (file, preview) => {
     setFoto(file);
@@ -49,7 +40,6 @@ const DadosPessoaisFuncionario = () => {
         <ImagemViewer
           imageUrl={fotoPreview}
           onImageChange={handleImageChange}
-          required
         />
 
         <div className={styles.grid}>
@@ -68,4 +58,3 @@ const DadosPessoaisFuncionario = () => {
 };
 
 export default DadosPessoaisFuncionario;
-

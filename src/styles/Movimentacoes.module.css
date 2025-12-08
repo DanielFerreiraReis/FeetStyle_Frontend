@@ -1,0 +1,58 @@
+:root {
+  --bg-light: #f5faff;
+  --bg-dark: #1e1e2f;
+  --text-light: #222;
+  --text-dark: #eee;
+  --border-light: #ddd;
+  --border-dark: #444;
+  --transition: 0.3s ease;
+}
+
+/* Reset básico */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background var(--transition), color var(--transition);
+}
+
+.dark body, .dark html {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Layout principal da página de movimentações/cadastro */
+.formLayout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg-light);
+  transition: background var(--transition);
+}
+
+.dark .formLayout {
+  background: var(--bg-dark);
+}
+
+/* Corpo do formulário */
+.formBody {
+  flex: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto; /* melhor que hidden para permitir scroll */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-light);
+  transition: background var(--transition), border var(--transition);
+}
+
+.dark .formBody {
+  border: 1px solid var(--border-dark);
+  background: var(--bg-dark);
+}

@@ -15,38 +15,6 @@ body, html {
   width: 100%;
 }
 
-/* TopBar com botões de etapas */
-.topBar {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  background-color: #0078d4;
-  padding: 1rem 2rem;
-  gap: 1rem;
-  border-bottom: 3px solid #005a9e;
-}
-
-/* Botões de etapa */
-.stepButton {
-  background-color: white;
-  color: #0078d4;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.stepButton:hover {
-  background-color: #e6f0fa;
-}
-
-.active {
-  background-color: #005a9e;
-  color: white;
-}
-
 /* Corpo do formulário */
 .formBody {
   flex: 1;

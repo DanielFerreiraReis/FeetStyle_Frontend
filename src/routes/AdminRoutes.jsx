@@ -7,15 +7,26 @@ import Endereco from "../pages/private/admin/utilsCadastro/Endereco";
 import { FormProvider } from "../context/FormContext";
 import CadastroCalcado from "../pages/private/admin/cadastrosProduto/CadastroCalcado";
 import DadosPessoaisCliente from "../pages/private/admin/cadastrosCliente/DadosPessoaisCliente";
+import { StepProvider } from "../context/StepContext";
+
+import Movimentacoes from "../pages/private/admin/movimentacoes/Movimentacoes";
+import MovimentacaoFuncionario from "../pages/private/admin/movimentacoes/MovimentacaoFuncionario";
 
 const funcionarioSteps = [
-  { path: "dados-pessoais", label: "Dados Pessoais" },
-  { path: "endereco", label: "Endereço" },
+  { path: "cadastro/funcionario/dados-pessoais", label: "Dados Pessoais" },
+  { path: "cadastro/funcionario/endereco", label: "Endereço" },
 ];
 
 const clienteSteps = [
-  { path: "dados-pessoais", label: "Dados Pessoais" },
-  { path: "endereco", label: "Endereço" },
+  { path: "cadastro/cliente/dados-pessoais", label: "Dados Pessoais" },
+  { path: "cadastro/cliente/endereco", label: "Endereço" },
+];
+
+const stepsConfig = [
+  { path: "movimentacoes/funcionarios", label: "Funcionários" },
+  { path: "clientes", label: "Clientes" },
+  { path: "produtos", label: "Produtos" },
+  { path: "logins", label: "Logins" },
 ];
 
 const adminRoutes = [
@@ -24,7 +35,9 @@ const adminRoutes = [
     path="/dashboard"
     element={
       <PrivateRoute allowedRoles={["admin"]}>
-        <DashboardLayout />
+        <StepProvider>
+          <DashboardLayout />
+        </StepProvider>
       </PrivateRoute>
     }
   >
@@ -43,12 +56,7 @@ const adminRoutes = [
     />
 
     {/* Fluxo de cadastro */}
-    <Route
-      path="cadastro"
-      element={
-          <Outlet />
-      }
-    >
+    <Route path="cadastro" element={<Outlet />}>
       {/* Cadastro de Clientes com steps */}
       <Route
         path="cliente"
@@ -74,6 +82,16 @@ const adminRoutes = [
         <Route path="dados-pessoais" element={<DadosPessoaisFuncionario />} />
         <Route path="endereco" element={<Endereco />} />
       </Route>
+    </Route>
+
+    <Route path="movimentacoes" element={<FormProvider> <Movimentacoes steps={stepsConfig} /> </FormProvider>}>
+      <Route
+        path="funcionarios"
+        element={<MovimentacaoFuncionario/>}
+      />
+      <Route path="clientes" /*element={<MovimentacaoCliente /> }*/ />
+      <Route path="produtos" /*element={<MovimentacaoProduto />} */ />
+      <Route path="logins" /*element={<MovimentacaoLogin />} */ />
     </Route>
   </Route>,
 ];
