@@ -10,7 +10,7 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 
 const TelaDeVendas = () => {
   const { fotoPreview, setFotoPreview } = useFormStatus();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth(); // supondo que o contexto de auth traga o usuário logado
 
   const [codigoProduto, setCodigoProduto] = useState("");
   const [produto, setProduto] = useState(null);
@@ -108,17 +108,49 @@ const TelaDeVendas = () => {
   const calcularTotalCompra = () =>
     carrinho.reduce((acc, item) => acc + item.total, 0);
 
-  // Finalizar venda
-  const finalizarVenda = () => {
-    console.log("Venda registrada:", carrinho);
-    setCarrinho([]);
-    setProduto(null);
-    setFotoPreview(null);
-    setCodigoProduto("");
-    setQuantidade(1);
-    setMensagemProduto("Venda finalizada!");
-    gerarCodigoVenda();
-    setShowPagamento(false);
+  // Finalizar venda (agora envia para o backend)
+  const finalizarVenda = async (metodoPagamento) => {
+    try {
+      const response = await fetch(
+        "http://localhost/BackEndLojaDeSapatos/src/api/produto/salvar.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            idVenda: codigoVenda,
+            dataVenda: new Date().toISOString().split("T")[0],
+            idFuncionario: user?.id || 1, // pega do contexto de login ou usa 1 como fallback
+            metodoPagamento,
+            valorTotal: calcularTotalCompra(),
+            itens: carrinho.map((item) => ({
+              idCalcado: item.id,
+              quantidade: item.qtd,
+              valorUnitario: item.valor,
+              totalItem: item.total,
+            })),
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Resposta do backend:", data);
+
+      if (data.success) {
+        setMensagemProduto("Venda registrada com sucesso!");
+        setCarrinho([]);
+        setProduto(null);
+        setFotoPreview(null);
+        setCodigoProduto("");
+        setQuantidade(1);
+        gerarCodigoVenda();
+        setShowPagamento(false);
+      } else {
+        setMensagemProduto(data.message || "Erro ao registrar venda!");
+      }
+    } catch (error) {
+      console.error("Erro ao salvar venda:", error);
+      setMensagemProduto("Erro de conexão com o servidor!");
+    }
   };
 
   return (

@@ -3,7 +3,6 @@ import styles from "../styles/cssUi/ImagemViewerOutput.module.css";
 
 const ImagemViewerOutput = ({ imageUrl, label = "Imagem" }) => {
   const displayImage = imageUrl;
-  console.log("URL recebida no componente:", imageUrl);
   return (
     <div className={styles.container}>
       {label && <label className={styles.label}>{label}</label>}
