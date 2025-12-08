@@ -25,8 +25,8 @@ const Cadastro = ({ steps = [] }) => {
     }
   }, [steps]);
 
-  // Checagem global das rotas do formulário
-  const canSubmit = isFormValid(steps.map((s) => s.path));
+  // Checagem global das rotas dos formulários
+  const canSubmit = isFormValid(steps.map((s) => s.key));
 
   const handleSubmit = async () => {
     try {

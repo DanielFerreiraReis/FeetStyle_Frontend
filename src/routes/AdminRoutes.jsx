@@ -1,32 +1,69 @@
-import { Outlet, Route } from "react-router-dom";
+//React imports
+import { Outlet, Route, Navigate} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+
+//pages imports
 import DashboardLayout from "../pages/private/admin/DashboardLayout";
 import Cadastro from "../pages/private/admin/Cadastro";
 import DadosPessoaisFuncionario from "../pages/private/admin/cadastrosFuncionario/DadosPessoaisFuncionario";
 import Endereco from "../pages/private/admin/utilsCadastro/Endereco";
-import { FormProvider } from "../context/FormContext";
 import CadastroCalcado from "../pages/private/admin/cadastrosProduto/CadastroCalcado";
 import DadosPessoaisCliente from "../pages/private/admin/cadastrosCliente/DadosPessoaisCliente";
-import { StepProvider } from "../context/StepContext";
-
 import Movimentacoes from "../pages/private/admin/movimentacoes/Movimentacoes";
 import MovimentacaoFuncionario from "../pages/private/admin/movimentacoes/MovimentacaoFuncionario";
 
+//context imports
+import { FormProvider } from "../context/FormContext";
+import { StepProvider } from "../context/StepContext";
+
+
 const funcionarioSteps = [
-  { path: "cadastro/funcionario/dados-pessoais", label: "Dados Pessoais" },
-  { path: "cadastro/funcionario/endereco", label: "Endereço" },
+  { 
+    key: "dados-pessoais", 
+    path: "cadastro/funcionario/dados-pessoais", 
+    label: "Dados Pessoais" 
+  },
+  { 
+    key: "endereco", 
+    path: "cadastro/funcionario/endereco", 
+    label: "Endereço" 
+  },
 ];
 
+
 const clienteSteps = [
-  { path: "cadastro/cliente/dados-pessoais", label: "Dados Pessoais" },
-  { path: "cadastro/cliente/endereco", label: "Endereço" },
+  { 
+    key: "dados-pessoais", 
+    path: "cadastro/cliente/dados-pessoais", 
+    label: "Dados Pessoais" 
+  },
+  { 
+    key: "endereco",
+    path: "cadastro/cliente/endereco",
+    label: "Endereço" 
+  },
 ];
 
 const stepsConfig = [
-  { path: "movimentacoes/funcionarios", label: "Funcionários" },
-  { path: "clientes", label: "Clientes" },
-  { path: "produtos", label: "Produtos" },
-  { path: "logins", label: "Logins" },
+  { 
+    key: "funcionario" , 
+    path: "movimentacoes/funcionarios", 
+    label: "Funcionários" 
+  },
+  { key: "cliente" ,
+    path: "clientes", 
+    label: "Clientes" 
+  },
+  { 
+    key: "produto" , 
+    path: "produtos", 
+    label: "Produtos" 
+  },
+  { 
+    key: "login" , 
+    path: "logins", 
+    label: "Logins" 
+  },
 ];
 
 const adminRoutes = [
@@ -42,7 +79,7 @@ const adminRoutes = [
     }
   >
     {/* Página inicial do dashboard */}
-    <Route index element={<h1>OLÀ</h1>} />
+    <Route index element={<Navigate to={"cadastro/funcionario"} replace /> }/>
 
     {/* Cadastro de calçados sem steps */}
     <Route
@@ -66,6 +103,7 @@ const adminRoutes = [
           </FormProvider>
         }
       >
+        <Route index element={<Navigate to="dados-pessoais" replace />} />
         <Route path="dados-pessoais" element={<DadosPessoaisCliente />} />
         <Route path="endereco" element={<Endereco />} />
       </Route>
@@ -79,12 +117,19 @@ const adminRoutes = [
           </FormProvider>
         }
       >
+        <Route index element={<Navigate to="dados-pessoais" replace />} />
         <Route path="dados-pessoais" element={<DadosPessoaisFuncionario />} />
         <Route path="endereco" element={<Endereco />} />
       </Route>
     </Route>
 
-    <Route path="movimentacoes" element={<FormProvider> <Movimentacoes steps={stepsConfig} /> </FormProvider>}>
+    <Route path="movimentacoes" element={
+        <FormProvider> 
+          <Movimentacoes steps={stepsConfig} /> 
+        </FormProvider>
+      }
+    >
+      <Route index element={<Navigate to="funcionarios" replace />} />
       <Route
         path="funcionarios"
         element={<MovimentacaoFuncionario/>}

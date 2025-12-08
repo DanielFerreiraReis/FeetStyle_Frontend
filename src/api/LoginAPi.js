@@ -14,3 +14,33 @@ export const loginUser = async (user, senha) => {
     return { success: false, message: 'Erro de conexão com o servidor' };
   }
 };
+
+//API para verificação do funcionário
+export async function verifyFuncionario(payload) {
+  const form = new FormData();
+  form.append("id", payload.id);
+  form.append("nome", payload.nome);
+  form.append("cpf", payload.cpf);
+
+  const res = await fetch("http://localhost/api/login/verifyFuncionario.php", {
+    method: "POST",
+    body: form,
+  });
+
+  return await res.json();
+}
+
+//API para cadastrar um login
+export async function createLogin(payload) {
+  const form = new FormData();
+  form.append("idFuncionario", payload.idFuncionario);
+  form.append("userLog", payload.userLog);
+  form.append("password", payload.password);
+
+  const res = await fetch("http://localhost/api/login/createLogin.php", {
+    method: "POST",
+    body: form,
+  });
+
+  return await res.json();
+}
