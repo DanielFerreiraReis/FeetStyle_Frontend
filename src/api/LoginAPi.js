@@ -18,12 +18,15 @@ export const loginUser = async (user, senha) => {
 //API para verificação do funcionário
 export async function verifyFuncionario(payload) {
   const form = new FormData();
-  form.append("id", payload.id);
-  form.append("nome", payload.nome);
-  form.append("cpf", payload.cpf);
+  form.append("id", payload.id.trim());
+  form.append("nome", payload.nome.trim().toLowerCase()); // ou toUpperCase()
+  form.append("cpf", payload.cpf.replace(/\D/g, "")); // só números
 
-  const res = await fetch("http://localhost/api/login/verifyFuncionario.php", {
+  const res = await fetch("http://localhost/BackEndLojaDeSapatos/index.php/login/verificar-funcionario", {
     method: "POST",
+    headers: {
+      "X-Internal-Key": import.meta.env.VITE_API_KEY || "",
+    },
     body: form,
   });
 
@@ -37,10 +40,13 @@ export async function createLogin(payload) {
   form.append("userLog", payload.userLog);
   form.append("password", payload.password);
 
-  const res = await fetch("http://localhost/api/login/createLogin.php", {
+  const res = await fetch("http://localhost/BackEndLojaDeSapatos/index.php/login/cadastrar-login", {
     method: "POST",
+    headers: {
+      "X-Internal-Key": import.meta.env.VITE_API_KEY || "",
+    },
     body: form,
   });
 
   return await res.json();
-}
+};

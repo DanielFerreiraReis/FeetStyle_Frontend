@@ -2,11 +2,9 @@ import { useEffect } from "react";
 import InputCadastro from "../../../../components/componentesCadastro/InputCadastro";
 import ImagemViewer from "../../../../UI/ImagemViewerInput";
 import { useFormStatus } from "../../../../context/FormContext";
-import styles from "../../../../styles/subRotesCss/DadosPessoaisFuncionario.module.css";
-import {
-  camposClientePF,
-  camposClientePJ,
-} from "../../../../utils/camposCliente";
+import styles from "../../../../styles/subRotesCss/CadastroClientes.module.css";
+import { camposClientePF, camposClientePJ } from "../../../../utils/camposCliente";
+import { cadastrarCliente } from "../../../../api/CadastroCliente";
 
 const DadosPessoaisCliente = () => {
   const {
@@ -38,7 +36,17 @@ const DadosPessoaisCliente = () => {
   const handleImageChange = (file, preview) => {
     setFoto(file);
     setFotoPreview(preview);
-    updateData("foto", file);
+    updateData("fotoArquivo", file); // importante: chave usada no API
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const result = await cadastrarCliente(data);
+      alert(result.message);
+    } catch (error) {
+      alert("Erro ao cadastrar cliente");
+      console.error(error);
+    }
   };
 
   return (

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { verifyFuncionario, createLogin } from "../../api/LoginAPI";
+import styles from "../../styles/LoginCadastro.module.css";
 
-const LoginCadastro = () => {
+const LoginCadastro = ({ onClose }) => {
   const [form, setForm] = useState({
     id: "",
     nome: "",
@@ -14,7 +15,7 @@ const LoginCadastro = () => {
   const [feedback, setFeedback] = useState("");
 
   const handleChange = (field, value) => {
-    setForm(prev => ({ ...prev, [field]: value }));
+    setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const validarFuncionario = async () => {
@@ -24,15 +25,14 @@ const LoginCadastro = () => {
       setValidated(true);
       setFeedback("Funcionário validado! Agora crie o login.");
     } else {
-      setFeedback(result.message);
-      setValidated(false);
+      setFeedback(result.message || "Erro ao validar.");
     }
   };
 
   const cadastrarLogin = async () => {
     const result = await createLogin({
       idFuncionario: form.id,
-      userLog: form.userLog,
+      userLog: form.userLog.toLowerCase(),
       password: form.password,
     });
 
@@ -51,58 +51,77 @@ const LoginCadastro = () => {
   };
 
   return (
-    <div className="login-cadastro">
+    <div className={styles.modalOverlay}>
+      <div className={styles.container}>
+        <div className={styles.forms}>
+          <span className={styles.icon} onClick={onClose}>✖</span>
 
-      <h2>Cadastro de Login</h2>
+          <h1>Cadastro de Login</h1>
 
-      <input
-        type="text"
-        placeholder="ID do funcionário"
-        value={form.id}
-        onChange={e => handleChange("id", e.target.value)}
-      />
+          {!validated && (
+            <>
+              <div className={styles.inputBox}>
+                <input
+                  type="text"
+                  placeholder="ID do funcionário"
+                  value={form.id}
+                  onChange={(e) => handleChange("id", e.target.value)}
+                />
+              </div>
 
-      <input
-        type="text"
-        placeholder="Nome"
-        value={form.nome}
-        onChange={e => handleChange("nome", e.target.value)}
-      />
+              <div className={styles.inputBox}>
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  value={form.nome}
+                  onChange={(e) => handleChange("nome", e.target.value)}
+                />
+              </div>
 
-      <input
-        type="text"
-        placeholder="CPF"
-        value={form.cpf}
-        onChange={e => handleChange("cpf", e.target.value)}
-      />
+              <div className={styles.inputBox}>
+                <input
+                  type="text"
+                  placeholder="CPF"
+                  value={form.cpf}
+                  onChange={(e) => handleChange("cpf", e.target.value)}
+                />
+              </div>
 
-      <button onClick={validarFuncionario}>
-        Validar Funcionário
-      </button>
+              <button className={styles.login} onClick={validarFuncionario}>
+                Validar Funcionário
+              </button>
+            </>
+          )}
 
-      {validated && (
-        <>
-          <input
-            type="text"
-            placeholder="Usuário"
-            value={form.userLog}
-            onChange={e => handleChange("userLog", e.target.value)}
-          />
+          {validated && (
+            <>
+              <div className={styles.inputBox}>
+                <input
+                  type="text"
+                  placeholder="Usuário"
+                  value={form.userLog}
+                  onChange={(e) => handleChange("userLog", e.target.value)}
+                />
+              </div>
 
-          <input
-            type="password"
-            placeholder="Senha"
-            value={form.password}
-            onChange={e => handleChange("password", e.target.value)}
-          />
+              <div className={styles.inputBox}>
+                <input
+                  type="password"
+                  placeholder="Senha"
+                  value={form.password}
+                  onChange={(e) => handleChange("password", e.target.value)}
+                />
+              </div>
 
-          <button onClick={cadastrarLogin}>
-            Criar Login
-          </button>
-        </>
-      )}
+              <button className={styles.login} onClick={cadastrarLogin}>
+                Criar Login
+              </button>
+            </>
+          )}
 
-      {feedback && <p>{feedback}</p>}
+          {feedback && <p>{feedback}</p>}
+        </div>
+      </div>
     </div>
   );
 };
