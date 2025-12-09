@@ -10,7 +10,10 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 
 const TelaDeVendas = () => {
   const { fotoPreview, setFotoPreview } = useFormStatus();
-  const { logout, user } = useAuth(); // supondo que o contexto de auth traga o usuário logado
+
+  // ✅ ALTERADO: antes usava { logout, user }, agora usamos { logout, userId }
+  // pois o AuthContext foi ajustado para expor userId (decoded do JWT)
+  const { logout, userId } = useAuth();
 
   const [codigoProduto, setCodigoProduto] = useState("");
   const [produto, setProduto] = useState(null);
@@ -119,7 +122,9 @@ const TelaDeVendas = () => {
           body: JSON.stringify({
             idVenda: codigoVenda,
             dataVenda: new Date().toISOString().split("T")[0],
-            idFuncionario: user?.id || 1, // pega do contexto de login ou usa 1 como fallback
+            // ✅ ALTERADO: antes usava user?.id || 1
+            // agora usamos diretamente userId do AuthContext (funcionário logado)
+            idFuncionario: userId,
             metodoPagamento,
             valorTotal: calcularTotalCompra(),
             itens: carrinho.map((item) => ({
@@ -193,6 +198,7 @@ const TelaDeVendas = () => {
             <button
               className={`${styles.actionButton} ${styles.payButton}`}
               onClick={() => setShowPagamento(true)}
+              disabled={carrinho.length === 0} // ✅ só habilita se houver itens
             >
               Pagamento
             </button>
