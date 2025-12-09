@@ -2,7 +2,7 @@ import { useState } from "react";
 import { verifyFuncionario, createLogin } from "../../api/LoginAPI";
 import styles from "../../styles/LoginCadastro.module.css";
 
-const LoginCadastro = ({ onClose }) => {
+const LoginCadastro = ({ onClose, onSuccess }) => {
   const [form, setForm] = useState({
     id: "",
     nome: "",
@@ -39,14 +39,13 @@ const LoginCadastro = ({ onClose }) => {
     setFeedback(result.message);
 
     if (result.success) {
-      setForm({
-        id: "",
-        nome: "",
-        cpf: "",
-        userLog: "",
-        password: "",
-      });
-      setValidated(false);
+      // 🔥 Envia mensagem para a tela de Login
+      if (onSuccess) {
+        onSuccess("Usuário criado com sucesso! Agora faça login.");
+      }
+
+      // 🔥 Fecha o modal automaticamente
+      onClose();
     }
   };
 

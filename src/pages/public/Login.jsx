@@ -109,12 +109,14 @@ const Login = () => {
       </form>
 
       {abrirCadastroLogin && (
-        <LoginCadastro onClose={() => setAbrirCadastroLogin(false)} />
+        <LoginCadastro
+          onClose={() => setAbrirCadastroLogin(false)}
+          onSuccess={(msg) => {
+            setModalMessage(msg); // abre o ModalFeedBack
+            setAbrirCadastroLogin(false); // fecha o modal de cadastro
+          }}
+        />
       )}
-      <ModalFeedBack
-        message={modalMessage}
-        onClose={() => setModalMessage("")}
-      />
     </main>
   );
 };
